@@ -1,9 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Persistencia;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Persistencia.Tests
 {
@@ -11,7 +6,7 @@ namespace Persistencia.Tests
     public class ComandoSQLTests
     {
         [TestMethod()]
-        public void Mostrar_SeleccionTest()
+        public void AgregarZona()
         {
             ComandoSQL prueba = new ComandoSQL("AltaZona");
             //EXEC AltaZona 'a','A25','La Casona',250000
@@ -23,6 +18,11 @@ namespace Persistencia.Tests
 
             Assert.AreEqual(prueba.Ejecutar_Transaccion(),0);
             //Assert.Fail("prueba",prueba);
+        }
+        [TestMethod()]
+        public void Hacer_Listado()
+        {
+            
         }
     }
 }

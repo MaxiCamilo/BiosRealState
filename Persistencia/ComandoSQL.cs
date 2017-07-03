@@ -56,11 +56,20 @@ namespace Persistencia
         /// <returns>Retorna el número devuelto del procedimiento</returns>
         public int Ejecutar_Transaccion()
         {
-            _Conector.Open();
-            _Comando.CommandType = System.Data.CommandType.StoredProcedure;
-            _Transaccion = _Conector.BeginTransaction(_Accion);            
-            _Comando.Transaction = _Transaccion;
-            _Comando.CommandText = _Accion;
+            try
+            {
+                _Conector.Open();
+                _Comando.CommandType = System.Data.CommandType.StoredProcedure;
+                _Transaccion = _Conector.BeginTransaction(_Accion);
+                _Comando.Transaction = _Transaccion;
+                _Comando.CommandText = _Accion;
+            }
+            catch (Exception ex)
+            {
+                //¡O Rayos!
+                
+                throw new ExErrorConexion(ex.Message, _Conector);
+            }
             //Revisa si el parametro de retorno no se alla repetido
             if (_Comando.Parameters.Count != 0 && _Comando.Parameters[0] != _Parametro)
             {
@@ -221,6 +230,7 @@ namespace Persistencia
                 _Lector = _Comando.ExecuteReader();
                 if (!_Lector.HasRows)
                 {
+                    CerrarConexion();
                     return retorno;
                 }
                 while (_Lector.Read())
@@ -231,9 +241,10 @@ namespace Persistencia
             catch(Exception ex)
             {
                 //¡O Rayos!
+                CerrarConexion();
                 throw new ExErrorConexion(ex.Message, _Conector);
             }
-
+            CerrarConexion();
             return retorno;
 
 
