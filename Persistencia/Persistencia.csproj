@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="ComandoSQL.cs" />
     <Compile Include="Configuracion.cs" />
+    <Compile Include="Persistencia_Automatica.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

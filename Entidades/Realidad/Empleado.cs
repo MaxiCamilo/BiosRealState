@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using Entidades.Utilidades;
 
 namespace Entidades.Realidad
 {
@@ -29,6 +31,40 @@ namespace Entidades.Realidad
         public Empleado(string Nombre, string Contrasenia) {
             _Nombre = Nombre;
             _Contrasenia = Contrasenia;
+        }
+
+        /// <summary>
+        /// Se puede crear el objeto a partir de una letura en la base de datos.
+        /// </summary>
+        /// <param name="lector">Donde se encuentran los objetos, recorar de usar el read() antes.</param>
+        public Empleado(SqlDataReader lector)
+        {
+            Empleado retorno = Generador_Objeto(lector);
+
+            _Nombre = retorno.Nombre;
+
+        }
+        /// <summary>
+        /// Metodo para crear el objeto a partir de una consulta en la base de datos.
+        /// </summary>
+        /// <param name="lector">Donde se encuentran los objetos, recorar de usar el read() antes.</param>
+        /// <returns>Retorna el objeto ya generado.</returns>
+        public static Empleado Generador_Objeto(SqlDataReader lector)
+        {
+            Empleado retorno = new Empleado();
+            retorno.Nombre = lector["nombre"].ToString();
+
+            return retorno;
+        }
+
+        /// <summary>
+        /// Imprime en linea todas las propiedades 
+        /// Nota! Solo usar en validadores o en debug.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return Ver_Propiedades.En_Linea(this);
         }
     }
 }

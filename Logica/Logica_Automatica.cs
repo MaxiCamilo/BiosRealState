@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Logica
 {
-    public class Class1
+    class Logica_Automatica
     {
     }
 }

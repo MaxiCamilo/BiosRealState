@@ -67,7 +67,7 @@ namespace Persistencia
             catch (Exception ex)
             {
                 //¡O Rayos!
-                
+                 
                 throw new ExErrorConexion(ex.Message, _Conector);
             }
             //Revisa si el parametro de retorno no se alla repetido

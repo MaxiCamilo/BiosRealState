@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Excepiones\Excepciones_Persistencia.cs" />
-    <Compile Include="Interfaces\IListadoRealida.cs" />
+    <Compile Include="Interfaces\IValidador.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Realidad\Apartamento.cs" />
     <Compile Include="Realidad\Casa.cs" />
@@ -50,6 +50,12 @@
     <Compile Include="Realidad\Local.cs" />
     <Compile Include="Realidad\Propiead.cs" />
     <Compile Include="Realidad\Zona.cs" />
+    <Compile Include="Utilidades\Ver_Propiedades.cs" />
+    <Compile Include="Validadores\Limite.cs" />
+    <Compile Include="Validadores\Mayor.cs" />
+    <Compile Include="Validadores\Menor.cs" />
+    <Compile Include="Validadores\NoVacio.cs" />
+    <Compile Include="Validadores\Numeros.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
