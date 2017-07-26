@@ -8,9 +8,11 @@ namespace Entidades.Interfaces
     /// <summary>
     /// Interfaz para comunicar los validadores
     /// </summary>
-    public interface IValidador
+    public abstract class  Validador
     {
-        bool Validar(Object Valor);
+        abstract public bool Validar();
+        public Object Valor { get; set; }
+        public string Mensaje { get; set; } = " < Sin Mensaje > ";
 
     }
     public interface IConversor

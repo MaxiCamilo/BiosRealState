@@ -9,20 +9,21 @@ namespace Entidades.Validadores
     /// <summary>
     /// Este validador compara el largo de un texto o si el numero no supera un limite
     /// </summary>
-    public class Menor : IValidador
+    public class Hasta : Validador
     {
 
         public Decimal Limite { get; set; } = 0;
         public bool Solo_Validar_Largo { get; set; } = false;
-        public Menor()
+        public Hasta()
         {
-
+            
         }
 
 
         //Funcion de validador
-        public bool Validar(Object Valor)
+        public override bool Validar()
         {
+            Mensaje = "no puede ser mayor de " + Limite;
             if (Valor == null)
             {
                 return false;
@@ -30,7 +31,8 @@ namespace Entidades.Validadores
 
             if (Solo_Validar_Largo)
             {
-                return Valor.ToString().Length <= Limite;
+                Mensaje = "debe tener hasta " + Limite + " caracteres";
+                return Limite >= Valor.ToString().Length ;
             }
 
             //Es int?
@@ -65,6 +67,7 @@ namespace Entidades.Validadores
                 return Limite >= esNumero;
             }
             //Sino es un string, se verifica su largo
+            Mensaje = "debe tener como minimo " + Limite + " caracteres";
             return Valor.ToString().Length <= Limite;
         }
     }

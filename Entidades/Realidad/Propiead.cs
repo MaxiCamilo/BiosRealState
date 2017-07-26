@@ -4,13 +4,14 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using Entidades.Utilidades;
+using Entidades.Interfaces;
 
 namespace Entidades.Realidad
 {
     /// <summary>
     /// Entidad que representan las propiedades a la venta 
     /// </summary>
-    public class Propiead
+    public class Propiead : Entidad
     {
         public enum Tipo_Accion {SinDefinir, alquiler , venta , permuta }
 
@@ -23,8 +24,10 @@ namespace Entidades.Realidad
         protected decimal _Metros_Cuadrados = -1;
         protected decimal _Precio = -1;
 
+
         //Atributos Externos
-        private Zona _Zona = new Zona();
+        protected Zona _Zona = new Zona();
+        protected Empleado _Empleado = new Empleado();
 
         //Accesores
         public int Padron { get { return _Padron; } set { _Padron = value; } }
@@ -34,7 +37,9 @@ namespace Entidades.Realidad
         public int Cantidad_Habitaciones { get { return _Cantidad_Habitaciones; } set { _Cantidad_Habitaciones = value; } }
         public decimal Metros_Cuadrados { get { return _Metros_Cuadrados; } set { _Metros_Cuadrados = value; } }
         public decimal Precio { get { return _Precio; } set { _Precio = value; } }
+
         public Zona Zona { get { return _Zona; } set { _Zona = value; } }
+        public Empleado Empleado { get { return _Empleado; } set { _Empleado = value; } }
 
         /// <summary>
         /// Constructor Basico, Dejara como '<Sin Definir>' las variables
@@ -43,7 +48,7 @@ namespace Entidades.Realidad
         /// <summary>
         /// Constructor Completo 
         /// </summary>
-        public Propiead(int Padron, string Direccion, Tipo_Accion Accion, int Cantidad_banios, decimal Metros_Cuadrados, decimal Precio, int Cantidad_Habitaciones, Zona Zona) {
+        public Propiead(int Padron, string Direccion, Tipo_Accion Accion, int Cantidad_banios, decimal Metros_Cuadrados, decimal Precio, int Cantidad_Habitaciones, Zona Zona, Empleado Empleado = null) {
             _Padron = Padron;
             _Direccion = Direccion;
             _Accion = Accion;
@@ -52,6 +57,7 @@ namespace Entidades.Realidad
             _Metros_Cuadrados = Metros_Cuadrados;
             _Precio = Precio;
             _Zona = Zona;
+            _Empleado = Empleado;
         }
 
         /// <summary>
@@ -60,7 +66,7 @@ namespace Entidades.Realidad
         /// <param name="lector">Donde se encuentran los objetos, recorar de usar el read() antes.</param>
         public Propiead (SqlDataReader lector)
         {
-            Propiead retorno = Generador_Objeto_Base(lector);
+            Propiead retorno = (Propiead)Generador_Objeto(lector);
 
             _Padron = retorno.Padron;
             _Direccion = retorno.Direccion;
@@ -78,7 +84,7 @@ namespace Entidades.Realidad
         /// </summary>
         /// <param name="lector">Donde se encuentran los objetos, recorar de usar el read() antes.</param>
         /// <returns>Retorna el objeto ya generado.</returns>
-        public static Propiead Generador_Objeto_Base(SqlDataReader lector)
+        public Propiead Generador_Objeto(SqlDataReader lector)
         {
             Propiead retorno = new Propiead();
 
@@ -106,6 +112,46 @@ namespace Entidades.Realidad
         public override string ToString()
         {
             return Ver_Propiedades.En_Linea(this);
+        }
+
+        /// <summary>
+        /// Funcion necesaria para poder comunicarce con la base de datos
+        /// </summary>
+        /// <returns>Retorna los parametros para la comunicacion de la base de datos.</returns>
+        public override Dictionary<string, object> Parametros()
+        {
+            Dictionary<string, object> retorno = new Dictionary<string, object>();
+
+            retorno.Add("padron", _Padron);
+            retorno.Add("letra_departamento", _Zona.Letra_Departamento);
+            retorno.Add("codigo_zona", _Zona.Codigo);
+            retorno.Add("direccion", _Direccion);
+            retorno.Add("precio", _Precio);
+            retorno.Add("accion", Enum.GetName(typeof(Tipo_Accion), _Accion));
+            retorno.Add("cantidad_banio", _Cantidad_Banios);
+            retorno.Add("cantidad_habitaciones", _Cantidad_Habitaciones);
+            retorno.Add("metros_cuadrados", _Metros_Cuadrados);
+            
+            //Verificamos que se alla asignado un Empleado
+            if(_Empleado != null)
+            {
+                retorno.Add("nombre_empleado", _Empleado.Nombre);
+            }
+
+            return retorno;
+        }
+
+        /// <summary>
+        /// Funcion donde solo retorna los items identificadores, util para verificacion
+        /// </summary>
+        /// <returns>Retorna los objetos primarios</returns>
+        public override Dictionary<string, object> Identificadores()
+        {
+            Dictionary<string, object> retorno = new Dictionary<string, object>();
+
+            retorno.Add("padron", _Padron);
+
+            return retorno;
         }
     }
 }

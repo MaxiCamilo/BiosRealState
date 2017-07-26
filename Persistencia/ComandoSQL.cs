@@ -5,7 +5,7 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Data;
 
-using Entidades.Excepiones.Persistencia;
+using Entidades.Excepiones;
 using Entidades.Interfaces;
 
 namespace Persistencia
@@ -15,6 +15,8 @@ namespace Persistencia
     /// </summary>
     public class ComandoSQL
     {
+        public delegate void Generador_Void(SqlDataReader Lector);
+
         private SqlConnection _Conector = new SqlConnection(Configuracion.Cadena_Conexion);
         private SqlCommand _Comando = new SqlCommand();
         private SqlParameter _Parametro = new SqlParameter("retorno", System.Data.SqlDbType.Int);
@@ -23,6 +25,8 @@ namespace Persistencia
         private string _Accion = "";
 
         public string Accion { get { return _Accion; } set { _Accion = value; } }
+        public SqlCommand Comando { get { return _Comando; } set { _Comando = value; } }
+        public SqlParameter Parametro { get { return _Parametro; } set { _Parametro = value; } }
 
         /// <summary>
         /// Crea el comando
@@ -32,13 +36,9 @@ namespace Persistencia
         {
             _Accion = comando;
             _Conector.ConnectionString = Configuracion.Cadena_Conexion;
-            
+
             _Comando = _Conector.CreateCommand();
             _Comando.Connection = _Conector;
-
-
-
-
 
         }
         /// <summary>
@@ -48,7 +48,7 @@ namespace Persistencia
         /// <param name="_valor">Valor asignado al mismo</param>
         public void AgregarParametro(string _parametro, Object _valor)
         {
-            _Comando.Parameters.AddWithValue(_parametro, _valor);
+            _Comando.Parameters.AddWithValue("@" + _parametro, _valor);
         }
         /// <summary>
         /// Pone en marcha la ejecucion por medio de una transaccion. SI O SI tiene que retornar 0, sino deshace las modificaciones
@@ -67,7 +67,7 @@ namespace Persistencia
             catch (Exception ex)
             {
                 //¡O Rayos!
-                 
+
                 throw new ExErrorConexion(ex.Message, _Conector);
             }
             //Revisa si el parametro de retorno no se alla repetido
@@ -75,17 +75,17 @@ namespace Persistencia
             {
                 _Comando.Parameters.Insert(0, _Parametro);
             }
-            
+
             //Asigna al parametro
             _Parametro.Direction = System.Data.ParameterDirection.ReturnValue;
             try
             {
                 //Ejecuta
-                
+
                 _Comando.ExecuteNonQuery();
-                
+
                 //En caso de ser 0, confirma la transaccion, sino la deshace
-         
+
                 if ((int)_Parametro.Value == 0)
                 {
                     _Transaccion.Commit();
@@ -94,9 +94,9 @@ namespace Persistencia
                 {
                     _Transaccion.Rollback();
                 }
-                
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //¡O Rayos!
                 try
@@ -107,7 +107,7 @@ namespace Persistencia
                 {
                     throw new ExErrorConexion(ex.Message + ". No se pudo deshacer la transaccion: " + exx.Message, _Conector);
                 }
-                throw new ExErrorConexion(ex.Message,_Conector);
+                throw new ExErrorConexion(ex.Message, _Conector);
             }
             finally
             {
@@ -201,9 +201,10 @@ namespace Persistencia
         /// </summary>
         /// <typeparam name="QueGenera">Especifique que clase de objeto quiere almacenar en la lista.</typeparam>
         /// <param name="Procesador">Algo de Js en C#. Funcion encargada en transformar los datos "crudos" de la base de datos, en objetos que puede procesar el sistemas. ES IMPORTANTE, que reciba como parametro un SqlDataReader (recibirá los datos) y retorne el objeto especificado. Puede utilizar funciones anonimal.</param>
-        /// <param name="esProcedimiento">Pregunta si el listado lo genera un procedimiento Sql, en caso contario (como por ejemplo una vista o funcion sql) debe poner el nombre, o el nombre y entre paréntesis los parametros en caso de que sea una funcion sql. ¡CUIDADO!, no esta blindado contra inyecciones SQL.</param>
+        /// <param name="esProcedimiento">Pregunta si el listado lo genera un procedimiento Sql, en caso contario (como por ejemplo una vista o funcion sql) debe poner el nombre, o el nombre y entre paréntesis los parametros en caso de que sea una funcion sql.
+        /// ¡CUIDADO!, no esta blindado contra inyecciones SQL, utilizar los @ en la cadena de seleccion junto con los parametros para evitar una inyeccion.</param>
         /// <returns></returns>
-        public List<QueGenera> Mostrar_Seleccion <QueGenera>(Func< SqlDataReader, QueGenera> Procesador, bool esProcedimiento = false)
+        public List<QueGenera> Generar_Listado<QueGenera>(Func<SqlDataReader, QueGenera> Procesador, bool esProcedimiento = false)
         {
             List<QueGenera> retorno = new List<QueGenera>();
             CerrarConexion();
@@ -238,7 +239,7 @@ namespace Persistencia
                     retorno.Add(Procesador(_Lector));
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //¡O Rayos!
                 CerrarConexion();
@@ -246,8 +247,162 @@ namespace Persistencia
             }
             CerrarConexion();
             return retorno;
+        }
 
+        /// <summary>
+        /// Funcion ideal para hacer lambdas y delegados, se pone en funcionamiento el 
+        /// lector (SqlDataReader), cada vez que leá una fila, se llama a la funcion asignada
+        /// en el parametro. El programador podra decir si seguir con la lectura, si retorna la
+        /// funcion delegada un True, sino se detiene. En caso de no contener nada el lector,
+        /// esta funcion retorna un False
+        /// </summary>
+        /// <param name="Generador">Funcion que retorna un booleano, si es verdadero seguira leyendo, sino detendra el lector</param>
+        /// <returns></returns>
+        public bool Ejecutar_Lector(Func<SqlDataReader, bool> Generador, bool esProcedimiento = false)
+        {
+            CerrarConexion();
+            //primero se verifica si es procediminiento
+            if (esProcedimiento)
+            {
+                _Comando.CommandType = CommandType.StoredProcedure;
+                _Comando.CommandText = _Accion;
+                //Revisa si el parametro de retorno no se alla repetido
+                if (_Comando.Parameters.Count != 0 && _Comando.Parameters[0] != _Parametro)
+                {
+                    _Comando.Parameters.Insert(0, _Parametro);
+                }
+            }
+            else
+            {
+                _Comando.CommandType = CommandType.Text;
+                _Comando.CommandText = "select * from " + _Accion;
+            }
 
+            try
+            {
+                _Conector.Open();
+                _Lector = _Comando.ExecuteReader();
+                if (!_Lector.HasRows)
+                {
+                    CerrarConexion();
+                    return false;
+                }
+                while (_Lector.Read())
+                {
+                    if (!Generador(_Lector))
+                    {
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //¡O Rayos!
+                CerrarConexion();
+                throw new ExErrorConexion(ex.Message, _Conector);
+            }
+            CerrarConexion();
+            return true;
+        }
+        /// <summary>
+        /// Funcion ideal para hacer lambdas, Actions y delegados, se pone en funcionamiento el 
+        /// lector (SqlDataReader), cada vez que leá una fila, se llama a la funcion asignada
+        /// en el parametro. En caso de no contener nada el lector, esta funcion retorna un False.
+        /// </summary>
+        /// <param name="Generador">Una funcion sin retorno(void), que es llamada la cantidad de veces segun el contenido del Lector</param>
+        /// <returns></returns>
+        public bool Ejecutar_Lector(Generador_Void Generador, bool esProcedimiento = false)
+        {
+            CerrarConexion();
+            //primero se verifica si es procediminiento
+            if (esProcedimiento)
+            {
+                _Comando.CommandType = CommandType.StoredProcedure;
+                _Comando.CommandText = _Accion;
+                //Revisa si el parametro de retorno no se alla repetido
+                if (_Comando.Parameters.Count != 0 && _Comando.Parameters[0] != _Parametro)
+                {
+                    _Comando.Parameters.Insert(0, _Parametro);
+                }
+            }
+            else
+            {
+                _Comando.CommandType = CommandType.Text;
+                _Comando.CommandText = "select * from " + _Accion;
+            }
+
+            try
+            {
+                _Conector.Open();
+                _Lector = _Comando.ExecuteReader();
+                if (!_Lector.HasRows)
+                {
+                    CerrarConexion();
+                    return false;
+                }
+                while (_Lector.Read())
+                {
+                    Generador(_Lector);
+                }
+            }
+            catch (Exception ex)
+            {
+                //¡O Rayos!
+                CerrarConexion();
+                throw new ExErrorConexion(ex.Message, _Conector);
+            }
+            CerrarConexion();
+            return true;
+        }
+        /// <summary>
+        /// Funcion ideal para hacer contructores automaticos, se pone en funcionamiento el 
+        /// lector (SqlDataReader), si lee llama a la funcion y retorna lo asignado en la clase generica.
+        /// </summary>
+        /// <param name="Generador">Debe asignar una funcion que retorna el objeto contruido</param>
+        /// <returns></returns>
+        public QueGenera Ejecutar_Lector<QueGenera>(Func<SqlDataReader, QueGenera> Generador, bool esProcedimiento = false)
+        {
+            QueGenera retorno = default(QueGenera);
+            CerrarConexion();
+            //primero se verifica si es procediminiento
+            if (esProcedimiento)
+            {
+                _Comando.CommandType = CommandType.StoredProcedure;
+                _Comando.CommandText = _Accion;
+                //Revisa si el parametro de retorno no se alla repetido
+                if (_Comando.Parameters.Count != 0 && _Comando.Parameters[0] != _Parametro)
+                {
+                    _Comando.Parameters.Insert(0, _Parametro);
+                }
+            }
+            else
+            {
+                _Comando.CommandType = CommandType.Text;
+                _Comando.CommandText = "select * from " + _Accion;
+            }
+
+            try
+            {
+                _Conector.Open();
+                _Lector = _Comando.ExecuteReader();
+                if (!_Lector.HasRows)
+                {
+                    CerrarConexion();
+                    return default(QueGenera);
+                }
+                if (_Lector.Read())
+                {
+                    retorno = Generador(_Lector);                    
+                }
+            }
+            catch (Exception ex)
+            {
+                //¡O Rayos!
+                CerrarConexion();
+                throw new ExErrorConexion(ex.Message, _Conector);
+            }
+            CerrarConexion();
+            return retorno;
         }
 
 

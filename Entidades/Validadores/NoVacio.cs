@@ -9,18 +9,18 @@ namespace Entidades.Validadores
     /// <summary>
     /// Este validador se usa para evitar los objetos nulos o vacios
     /// </summary>
-    public class NoVacio : IValidador
+    public class NoVacio : Validador
     {
 
         //Constructor vacio
         public NoVacio()
         {
-            
+            Mensaje = "no puede ser un valor vacio o nulo";
         }
         
 
         //Funcion de validador
-        public bool Validar(Object Valor)
+        public override bool Validar()
         {
             //Primero hay que saber si no es nulo
             if (Valor == null)

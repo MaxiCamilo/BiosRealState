@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9DD7CBCA-BE47-447B-A8BF-6C27B9EA337E}</ProjectGuid>
+    <ProjectGuid>{93260CC3-A511-4E07-8125-F79A0C51C27A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PersistenciaTests1</RootNamespace>
-    <AssemblyName>PersistenciaTests1</AssemblyName>
+    <RootNamespace>LogicaTests</RootNamespace>
+    <AssemblyName>LogicaTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -51,17 +51,20 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ComandoSQLTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Singelton\Logica_ConsultaTests.cs" />
+    <Compile Include="Singelton\Logica_EmpleadoTests.cs" />
+    <Compile Include="Singelton\Logica_PropiedadTests.cs" />
+    <Compile Include="Singelton\Logica_ZonaTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Entidades\Entidades.csproj">
       <Project>{c3528bbd-9ef0-4fa9-b0c7-9b2e963e3406}</Project>
       <Name>Entidades</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Persistencia\Persistencia.csproj">
-      <Project>{677AE4E8-45EF-42FF-8698-86A8EFAB43E8}</Project>
-      <Name>Persistencia</Name>
+    <ProjectReference Include="..\Logica\Logica.csproj">
+      <Project>{E5E5D943-AD59-4BDC-8805-83110772DB94}</Project>
+      <Name>Logica</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

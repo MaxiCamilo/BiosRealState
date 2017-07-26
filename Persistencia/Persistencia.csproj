@@ -42,8 +42,24 @@
   <ItemGroup>
     <Compile Include="ComandoSQL.cs" />
     <Compile Include="Configuracion.cs" />
+    <Compile Include="Fabrica_Persistencia.cs" />
+    <Compile Include="Interfaces\IPersistencia_Zona.cs" />
+    <Compile Include="Interfaces\IPersistencia_Apartamento.cs" />
+    <Compile Include="Interfaces\IPersistencia_Casa.cs" />
+    <Compile Include="Interfaces\IPersistencia_Consulta.cs" />
+    <Compile Include="Interfaces\IPersistencia_Empleado.cs" />
+    <Compile Include="Interfaces\IPersistencia_Local.cs" />
+    <Compile Include="Interfaces\IPersistencia_Propiedad.cs" />
     <Compile Include="Persistencia_Automatica.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Singleton\Persistencia_Apartamento.cs" />
+    <Compile Include="Singleton\Persistencia_Casa.cs" />
+    <Compile Include="Singleton\Persistencia_Consulta.cs" />
+    <Compile Include="Singleton\Persistencia_Empleado.cs" />
+    <Compile Include="Singleton\Persistencia_Local.cs" />
+    <Compile Include="Singleton\Persistencia_Propiedad.cs" />
+    <Compile Include="Singleton\Persistencia_Zona.cs" />
+    <Compile Include="ValidadorSQL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Entidades\Entidades.csproj">
@@ -51,6 +67,7 @@
       <Name>Entidades</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

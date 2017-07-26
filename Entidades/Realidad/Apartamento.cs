@@ -4,6 +4,8 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using Entidades.Utilidades;
+using Entidades.Interfaces;
+using System.Reflection;
 
 namespace Entidades.Realidad
 {
@@ -28,11 +30,25 @@ namespace Entidades.Realidad
         /// <summary>
         /// Constructor Completo 
         /// </summary>
-        public Apartamento(int Padron, string Direccion, Tipo_Accion Accion, int Cantidad_banios, decimal Metros_Cuadrados, decimal Precio, bool Ascensor, int Piso, int Cantidad_Habitaciones, Zona Zona)
-            : base( Padron, Direccion, Accion, Cantidad_banios, Metros_Cuadrados, Precio, Cantidad_Habitaciones, Zona)
+        public Apartamento(int Padron, string Direccion, Tipo_Accion Accion, int Cantidad_banios, decimal Metros_Cuadrados, decimal Precio, bool Ascensor, int Piso, int Cantidad_Habitaciones, Zona Zona, Empleado Empleado = null)
+            : base( Padron, Direccion, Accion, Cantidad_banios, Metros_Cuadrados, Precio, Cantidad_Habitaciones, Zona, Empleado)
         {
             Piso = _Piso;
             Ascensor = _Ascensor;
+        }
+
+        /// <summary>
+        /// Constructor de tipo casteo, por medio de reflexion, pasa todos los valores de un objeto del tipo "padre"
+        /// Fuente: https://stackoverflow.com/questions/9885644/cast-the-parent-object-to-child-object-in-c-sharp
+        /// </summary>
+        /// <param name="padre">Objeto por el cual se quiere castear y pasar sus valores</param>
+        public Apartamento(Propiead padre)
+        {
+            foreach (FieldInfo prop in padre.GetType().GetFields())
+                GetType().GetField(prop.Name).SetValue(this, prop.GetValue(padre));
+
+            foreach (PropertyInfo prop in padre.GetType().GetProperties())
+                GetType().GetProperty(prop.Name).SetValue(this, prop.GetValue(padre, null), null);
         }
 
         /// <summary>
@@ -50,14 +66,14 @@ namespace Entidades.Realidad
         /// </summary>
         /// <param name="lector">Donde se encuentran los objetos, recorar de usar el read() antes.</param>
         /// <returns>Retorna el objeto ya generado.</returns>
-        public static Apartamento Generador_Objeto(SqlDataReader lector)
+        public new Apartamento Generador_Objeto(SqlDataReader lector)
         {
             Apartamento retorno = new Apartamento()
             {
                 Ascensor = lector["ascensor"].ToString() == "1",
                 Piso = int.Parse(lector["piso"].ToString())
             };
-            Propiead retorno_base = Generador_Objeto_Base(lector);
+            Propiead retorno_base = base.Generador_Objeto(lector);
 
             retorno.Padron = retorno_base.Padron;
             retorno.Direccion = retorno_base.Direccion;
@@ -80,6 +96,19 @@ namespace Entidades.Realidad
         public override string ToString()
         {
             return Ver_Propiedades.En_Linea(this);
+        }
+        /// <summary>
+        /// Funcion necesaria para poder comunicarce con la base de datos
+        /// </summary>
+        /// <returns>Retorna los parametros para la comunicacion de la base de datos.</returns>
+        public override Dictionary<string, object> Parametros()
+        {
+            Dictionary<string, object> retorno = base.Parametros();
+
+            retorno.Add("piso", _Piso);
+            retorno.Add("ascensor", _Ascensor);
+            
+            return retorno;
         }
     }
 }

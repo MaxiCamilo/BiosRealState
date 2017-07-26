@@ -20,6 +20,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Archivo SQL", "Archivo SQL"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntidadesTests1", "EntidadesTests1\EntidadesTests1.csproj", "{6C74C44A-138A-41BC-9077-A3FCA0AE731E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicaTests", "LogicaTests\LogicaTests.csproj", "{93260CC3-A511-4E07-8125-F79A0C51C27A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{6C74C44A-138A-41BC-9077-A3FCA0AE731E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C74C44A-138A-41BC-9077-A3FCA0AE731E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C74C44A-138A-41BC-9077-A3FCA0AE731E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93260CC3-A511-4E07-8125-F79A0C51C27A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93260CC3-A511-4E07-8125-F79A0C51C27A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93260CC3-A511-4E07-8125-F79A0C51C27A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93260CC3-A511-4E07-8125-F79A0C51C27A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

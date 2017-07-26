@@ -11,17 +11,35 @@ namespace Entidades.Validadores
     /// <summary>
     /// Este validador sirve para verificar y convertir objetos numericos
     /// </summary>
-    public class Numeros<Tipo> : IValidador, IConversor
+    public class Numeros<Tipo> : Validador, IConversor
     {
 
         //Constructor vacio
         public Numeros()
         {
+            Type eltipo = typeof(Tipo);
+            if (eltipo == typeof(Int32) || eltipo == typeof(Int64))
+            {
+                Mensaje = "tiene que tener un formato de solo números enteros del tamaño razonable.";
+            }
+            if (eltipo == typeof(double) || eltipo == typeof(decimal))
+            {
+                Mensaje = "tiene que tener un formato de solo números enteros o decimales.";
+            }
+            if(eltipo == typeof(short))
+            {
+                Mensaje = "tiene que tener un formato de solo números de hasta 32 mil aproximadamente";
+            }
+            else
+            {
+                Mensaje = "tiene un formato incorrecto que no se puede usar como número";
+            }
+
         }
         /// <summary>
         /// Verificador
         /// </summary>
-        public bool Validar(Object Valor)
+        public override bool Validar()
         {
             Object _No_Referenciar = Valor;
             return Convertir(ref _No_Referenciar);

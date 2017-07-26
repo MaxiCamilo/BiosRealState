@@ -40,8 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Excepiones\Excepciones_Logicas.cs" />
     <Compile Include="Excepiones\Excepciones_Persistencia.cs" />
+    <Compile Include="Interfaces\IEntidadBD.cs" />
+    <Compile Include="Interfaces\ILogica.cs" />
     <Compile Include="Interfaces\IValidador.cs" />
+    <Compile Include="Interfaces\[x!]Singleton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Realidad\Apartamento.cs" />
     <Compile Include="Realidad\Casa.cs" />
@@ -51,11 +55,14 @@
     <Compile Include="Realidad\Propiead.cs" />
     <Compile Include="Realidad\Zona.cs" />
     <Compile Include="Utilidades\Ver_Propiedades.cs" />
+    <Compile Include="Validadores\Igual.cs" />
     <Compile Include="Validadores\Limite.cs" />
-    <Compile Include="Validadores\Mayor.cs" />
-    <Compile Include="Validadores\Menor.cs" />
+    <Compile Include="Validadores\Minimo.cs" />
+    <Compile Include="Validadores\Hasta.cs" />
     <Compile Include="Validadores\NoVacio.cs" />
     <Compile Include="Validadores\Numeros.cs" />
+    <Compile Include="Validadores\SinEspacios.cs" />
+    <Compile Include="Validadores\SoloLetras.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

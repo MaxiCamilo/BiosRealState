@@ -15,7 +15,7 @@ namespace Entidades.Validadores.Tests
         {
             Object Prueba = "5555";
             Numeros<int> num = new Numeros<int>();
-            num.Validar(Prueba);
+            num.Validar();
             Assert.AreEqual(Prueba, 5555);
             //Assert.Fail();
         }
@@ -24,10 +24,10 @@ namespace Entidades.Validadores.Tests
         {
             Decimal Prueba = 10;
 
-            Limite validador = new Limite() { Maximo = 10, Minimo = 1 };
+            Limite validador = new Limite() { Maximo = 10, Minimo = 1, Valor = Prueba };
             
 
-            Assert.AreEqual(validador.Validar(Prueba),true);
+            Assert.AreEqual(validador.Validar(),true);
             //Assert.Fail();
         }
     }

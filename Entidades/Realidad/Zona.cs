@@ -4,13 +4,14 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using Entidades.Utilidades;
+using Entidades.Interfaces;
 
 namespace Entidades.Realidad
 {
     /// <summary>
     /// Entidad que representa un territorio compuesto por propiedades y servicios
     /// </summary>
-    public class Zona
+    public class Zona : Entidad
     {
         //Atributos
         private string _Letra_departamento = "<Sin Definir>";
@@ -47,7 +48,7 @@ namespace Entidades.Realidad
         /// <param name="lector">Donde se encuentran los objetos, recorar de usar el read() antes.</param>
         public Zona(SqlDataReader lector)
         {
-            Zona retorno = Generador_Objeto(lector);
+            Zona retorno = (Zona)Generador_Objeto(lector);
 
             _Letra_departamento = retorno.Letra_Departamento;
             _Codigo = retorno.Codigo;
@@ -60,7 +61,7 @@ namespace Entidades.Realidad
         /// </summary>
         /// <param name="lector">Donde se encuentran los objetos, recorar de usar el read() antes.</param>
         /// <returns>Retorna el objeto ya generado.</returns>
-        public static Zona Generador_Objeto(SqlDataReader lector)
+        public Zona Generador_Objeto(SqlDataReader lector)
         {
             Zona retorno = new Zona();
             retorno.Letra_Departamento = lector["letra_departamento"].ToString();
@@ -79,6 +80,36 @@ namespace Entidades.Realidad
         public override string ToString()
         {
             return Ver_Propiedades.En_Linea(this);
+        }
+        
+        /// <summary>
+        /// Funcion necesaria para poder comunicarce con la base de datos
+        /// </summary>
+        /// <returns>Retorna los parametros para la comunicacion de la base de datos.</returns>
+        public override Dictionary<string, object> Parametros()
+        {
+            Dictionary<string, object> retorno = new Dictionary<string, object>();
+            
+            retorno.Add("letra_departamento", _Letra_departamento);
+            retorno.Add("codigo", _Codigo);
+            retorno.Add("nombre", _Nombre);
+            retorno.Add("habitantes", _Habitantes);
+            return retorno;
+            
+        }
+
+
+        /// <summary>
+        /// Funcion donde solo retorna los items identificadores, util para verificacion
+        /// </summary>
+        /// <returns>Retorna los objetos primarios</returns>
+        public override Dictionary<string, object> Identificadores()
+        {
+            Dictionary<string, object> retorno = new Dictionary<string, object>();
+
+            retorno.Add("letra_departamento", _Letra_departamento);
+            retorno.Add("codigo", _Codigo);
+            return retorno;
         }
     }
 }
