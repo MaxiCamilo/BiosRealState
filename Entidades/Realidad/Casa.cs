@@ -13,7 +13,7 @@ namespace Entidades.Realidad
     /// <summary>
     /// Tipo de propiedad, que tiene jardin y terreno
     /// </summary>
-    public class Casa : Propiead
+    public class Casa : Propiedad
     {
         //atributos
         private bool _Jardin = false;
@@ -44,7 +44,7 @@ namespace Entidades.Realidad
         /// <param name="lector">Donde se encuentran los objetos, recorar de usar el read() antes.</param>
         public Casa(SqlDataReader lector) : base(lector)
         {
-            _Jardin = lector["jardin"].ToString() == "1";
+            _Jardin = Convert.ToBoolean(lector["jardin"].ToString());
             _Tamanio_Terreno = decimal.Parse(lector["tamanio_terreno"].ToString());
 
         }
@@ -53,7 +53,7 @@ namespace Entidades.Realidad
         /// Fuente: https://stackoverflow.com/questions/9885644/cast-the-parent-object-to-child-object-in-c-sharp
         /// </summary>
         /// <param name="padre">Objeto por el cual se quiere castear y pasar sus valores</param>
-        public Casa(Propiead padre)
+        public Casa(Propiedad padre)
         {
             foreach (FieldInfo prop in padre.GetType().GetFields())
                 GetType().GetField(prop.Name).SetValue(this, prop.GetValue(padre));
@@ -70,10 +70,11 @@ namespace Entidades.Realidad
         public new Casa Generador_Objeto(SqlDataReader lector)
         {
             Casa retorno = new Casa() {
-                Jardin = lector["jardin"].ToString() == "1",
+                Jardin = Convert.ToBoolean(lector["jardin"].ToString()),
                 Tamanio_Terreno = decimal.Parse(lector["tamanio_terreno"].ToString())
             };
-            Propiead retorno_base = base.Generador_Objeto(lector);
+            
+            Propiedad retorno_base = base.Generador_Objeto(lector);
 
             retorno.Padron = retorno_base.Padron;
             retorno.Direccion = retorno_base.Direccion;
@@ -84,7 +85,7 @@ namespace Entidades.Realidad
             retorno.Precio = retorno_base.Precio;
             retorno.Zona = retorno_base.Zona;
             retorno.Precio = retorno_base.Precio;
-
+            retorno.Empleado = retorno_base.Empleado;
             return retorno;
         }
 

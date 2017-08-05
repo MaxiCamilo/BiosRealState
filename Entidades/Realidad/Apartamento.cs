@@ -12,7 +12,7 @@ namespace Entidades.Realidad
     /// <summary>
     /// Tipo de propiedad, que tiene ascensor y piso
     /// </summary>
-    public class Apartamento : Propiead
+    public class Apartamento : Propiedad
     {
         //atributos
         private bool _Ascensor = false;
@@ -42,7 +42,7 @@ namespace Entidades.Realidad
         /// Fuente: https://stackoverflow.com/questions/9885644/cast-the-parent-object-to-child-object-in-c-sharp
         /// </summary>
         /// <param name="padre">Objeto por el cual se quiere castear y pasar sus valores</param>
-        public Apartamento(Propiead padre)
+        public Apartamento(Propiedad padre)
         {
             foreach (FieldInfo prop in padre.GetType().GetFields())
                 GetType().GetField(prop.Name).SetValue(this, prop.GetValue(padre));
@@ -73,7 +73,7 @@ namespace Entidades.Realidad
                 Ascensor = lector["ascensor"].ToString() == "1",
                 Piso = int.Parse(lector["piso"].ToString())
             };
-            Propiead retorno_base = base.Generador_Objeto(lector);
+            Propiedad retorno_base = base.Generador_Objeto(lector);
 
             retorno.Padron = retorno_base.Padron;
             retorno.Direccion = retorno_base.Direccion;
@@ -84,7 +84,7 @@ namespace Entidades.Realidad
             retorno.Precio = retorno_base.Precio;
             retorno.Zona = retorno_base.Zona;
             retorno.Precio = retorno_base.Precio;
-            
+            retorno.Empleado = retorno_base.Empleado;
             return retorno;
         }
 

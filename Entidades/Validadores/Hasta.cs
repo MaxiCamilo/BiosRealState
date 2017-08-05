@@ -67,7 +67,7 @@ namespace Entidades.Validadores
                 return Limite >= esNumero;
             }
             //Sino es un string, se verifica su largo
-            Mensaje = "debe tener como minimo " + Limite + " caracteres";
+            Mensaje = "debe tener hasta " + Limite + " caracteres";
             return Valor.ToString().Length <= Limite;
         }
     }

@@ -8,11 +8,11 @@ using System.Data.SqlClient;
 using Persistencia.Interfaces;
 using Entidades.Validadores;
 using Persistencia;
+using Logica.Interfaces;
 
-
-namespace Logica.Singelton
+namespace Logica.Singleton
 {
-    public class Logica_Local
+    public class Logica_Local : ILogica_Local
     {
         #region Singleton
         // Variable estática para la instancia, se necesita utilizar una función lambda ya que el constructor es privado
@@ -32,16 +32,16 @@ namespace Logica.Singelton
         public List<string> Alta_local(Object padron, Object direccion, Object precio, Object accion, Object cantidad_banio,
             Object cantidad_habitaciones, Object metros_cuadrados, Object codigo_zona, Object letra_departamento, Object nombre_empleado, bool habilitacion)
         {
-            Propiead laBase = new Propiead();
+            Propiedad laBase = new Propiedad();
 
-            List<string> retorno = Logica_Propiedad.Instancia.Verificar_Propiedad(out laBase, padron, direccion, precio, accion, cantidad_banio, cantidad_banio,
+            List<string> retorno = Logica_Propiedad.Instancia.Verificar_Propiedad(out laBase, padron, direccion, precio, accion, cantidad_banio, cantidad_habitaciones,
                 metros_cuadrados, codigo_zona, letra_departamento, nombre_empleado, true);
             if (retorno.Count != 0)
             {
                 return retorno;
             }
             Local unLocal = new Local(laBase);
-            
+            unLocal.Habilitacion = habilitacion;
             if (retorno.Count == 0)
             {
                 int dio = Fabrica_Persistencia.getPersistencia_Local.Alta(unLocal);
@@ -86,15 +86,15 @@ namespace Logica.Singelton
         public List<string> Modificar_local(Object padron, Object direccion, Object precio, Object accion, Object cantidad_banio,
             Object cantidad_habitaciones, Object metros_cuadrados, Object codigo_zona, Object letra_departamento, Object nombre_empleado, bool habilitacion)
         {
-            Propiead laBase = new Propiead();
-            List<string> retorno = Logica_Propiedad.Instancia.Verificar_Propiedad(out laBase, padron, direccion, precio, accion, cantidad_banio, cantidad_banio,
+            Propiedad laBase = new Propiedad();
+            List<string> retorno = Logica_Propiedad.Instancia.Verificar_Propiedad(out laBase, padron, direccion, precio, accion, cantidad_banio, cantidad_habitaciones,
                 metros_cuadrados, codigo_zona, letra_departamento, nombre_empleado, false);
             if (retorno.Count != 0)
             {
                 return retorno;
             }
             Local unLocal = new Local(laBase);
-            
+            unLocal.Habilitacion = habilitacion;
             if (retorno.Count == 0)
             {
                 int dio = Fabrica_Persistencia.getPersistencia_Local.Modificar(unLocal);
@@ -131,6 +131,15 @@ namespace Logica.Singelton
             return retorno;
         }
 
+        public List<Local> Listado_Activos()
+        {
+            return Fabrica_Persistencia.getPersistencia_Local.Listado_Activos();
+        }
+
+        public List<Local> Listado_Todo()
+        {
+            return Fabrica_Persistencia.getPersistencia_Local.Listado_Todo();
+        }
 
 
 

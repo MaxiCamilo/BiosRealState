@@ -8,10 +8,11 @@ using System.Data.SqlClient;
 using Persistencia.Interfaces;
 using Entidades.Validadores;
 using Persistencia;
+using Logica.Interfaces;
 
 namespace Logica.Singleton
 {
-    public class Logica_Consulta
+    public class Logica_Consulta : ILogica_Consulta
     {
         #region Singleton
         // Variable estática para la instancia, se necesita utilizar una función lambda ya que el constructor es privado
@@ -113,7 +114,8 @@ namespace Logica.Singleton
                             new NoVacio(),
                             new Numeros<int>()
                         }
-                    },
+                    }
+                    
                 }
             };
             List<string> retorno = logica.Iniciar_Comprobacion();
@@ -123,6 +125,11 @@ namespace Logica.Singleton
             }
             if (retorno.Count == 0)
             {
+                if ((telefono.ToString()[0] != '0' && telefono.ToString()[1] != '9') && telefono.ToString()[0] != '2')
+                {
+                    retorno.Add("Telefono Invalido");
+                    return retorno;
+                }
                 int valor = Fabrica_Persistencia.getPersistencia_Consulta.Alta(unaConsulta);
                 if (valor == 0)
                 {
@@ -167,6 +174,111 @@ namespace Logica.Singleton
 
         }
 
-#endregion
+        public List<string> Baja_Consulta(object telefono, object fecha, object hora)
+        {
+            Consulta unaConsulta = new Consulta();
+            string OtroError = "";
+            Logica_Automatica logica = new Logica_Automatica()
+            {
+                Validadores_Formato =
+                {
+                    new Controlador_Valores(){
+                        Nombre = "Telefono",
+                        Valor = telefono,
+                        Asignar = a => unaConsulta.Telefono = telefono.ToString(),
+                        Validadores =
+                        {
+                            new NoVacio(),
+                            new Minimo(){Limite=8,Solo_Validar_Largo=true},
+                            new Hasta(){Limite=9,Solo_Validar_Largo=true},
+                            new Numeros<Int64>(),
+
+                        }
+                    },
+                    new Controlador_Valores(){
+                        Nombre = "Fecha",
+                        Valor = fecha,
+                        Asignar = a => {
+                            try
+                            {
+                                unaConsulta.Fecha = Convert.ToDateTime(a.ToString());
+                            }
+                            catch
+                            {
+                                OtroError = "Fecha Invalida";
+                            }
+                        },
+                        Validadores =
+                        {
+                            new NoVacio()
+                        }
+                    },
+                    new Controlador_Valores(){
+                        Nombre = "hora",
+                        Valor = hora.ToString(),
+                        Asignar = a => {
+                            try
+                            {
+                                unaConsulta.Hora = Convert.ToDateTime(hora.ToString()).ToString();
+                            }
+                            catch
+                            {
+                                OtroError = "Hora Invalida";
+                            }
+
+
+                        },
+                        Validadores =
+                        {
+                            new NoVacio(),
+                            new Minimo(){Limite=3,Solo_Validar_Largo=true},
+                            new Hasta(){Limite=5,Solo_Validar_Largo=true}
+                        }
+                    },
+                }
+            };
+            List<string> retorno = logica.Iniciar_Comprobacion();
+            if (OtroError != "")
+            {
+                retorno.Add(OtroError);
+            }
+            if (retorno.Count == 0)
+            {
+                int valor = Fabrica_Persistencia.getPersistencia_Consulta.Baja(unaConsulta);
+                if (valor == 0)
+                {
+                    return retorno;
+                }
+                else if (valor == -1)
+                {
+                    retorno.Add("No existe esa consulta");
+                }                
+                else
+                {
+                    retorno.Add("Fallo la eliminacion de la consulta");
+                }
+                return retorno;
+            }
+            return retorno;
+        }
+        #region Listado
+        public List<Consulta> Listado(int padron)
+        {
+            return Fabrica_Persistencia.getPersistencia_Consulta.Listado(padron);
+        }
+        
+        #endregion
+
+        #region Generador
+        public Consulta Generar(DateTime Fecha, string telefono)
+        {
+            return Fabrica_Persistencia.getPersistencia_Consulta.Generar(Fecha, telefono);
+        }
+
+        #endregion
+
+
+
+        #endregion
     }
 }

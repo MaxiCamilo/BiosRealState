@@ -51,7 +51,7 @@ namespace Persistencia.Singleton
             Consulta Protoripo = new Consulta();
             return comando.Ejecutar_Lector<Consulta>(Protoripo.Generador_Objeto);
         }    
-        
+        /*
         public List<Consulta> Consultas_Propiedad(int Padron)
         {
             Consulta Prototipo = new Consulta();
@@ -59,6 +59,9 @@ namespace Persistencia.Singleton
             comando.AgregarParametro("padron", Padron);
             return comando.Generar_Listado<Consulta>(Prototipo.Generador_Objeto, false);
         } 
+        */
+
+
         #endregion
 
 

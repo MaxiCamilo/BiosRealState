@@ -40,13 +40,13 @@ namespace Persistencia.Singleton
         public List<Local> Listado_Activos()
         {
             Local Prototipo = new Local();
-            ComandoSQL comando = new ComandoSQL("LISTADO_Local_ACTIVAS");
+            ComandoSQL comando = new ComandoSQL("LISTADO_LOCALES_ACTIVAS");
             return comando.Generar_Listado<Local>(Prototipo.Generador_Objeto, false);
         }
         public List<Local> Listado_Todo()
         {
             Local Prototipo = new Local();
-            ComandoSQL comando = new ComandoSQL("LISTADO_Local");
+            ComandoSQL comando = new ComandoSQL("LISTADO_Locales");
             return comando.Generar_Listado<Local>(Prototipo.Generador_Objeto, false);
         }
         #endregion

@@ -11,7 +11,7 @@ namespace Entidades.Realidad
     /// <summary>
     /// Entidad que representan las propiedades a la venta 
     /// </summary>
-    public class Propiead : Entidad
+    public class Propiedad : Entidad
     {
         public enum Tipo_Accion {SinDefinir, alquiler , venta , permuta }
 
@@ -44,11 +44,11 @@ namespace Entidades.Realidad
         /// <summary>
         /// Constructor Basico, Dejara como '<Sin Definir>' las variables
         /// </summary>
-        public Propiead() { }
+        public Propiedad() { }
         /// <summary>
         /// Constructor Completo 
         /// </summary>
-        public Propiead(int Padron, string Direccion, Tipo_Accion Accion, int Cantidad_banios, decimal Metros_Cuadrados, decimal Precio, int Cantidad_Habitaciones, Zona Zona, Empleado Empleado = null) {
+        public Propiedad(int Padron, string Direccion, Tipo_Accion Accion, int Cantidad_banios, decimal Metros_Cuadrados, decimal Precio, int Cantidad_Habitaciones, Zona Zona, Empleado Empleado = null) {
             _Padron = Padron;
             _Direccion = Direccion;
             _Accion = Accion;
@@ -64,9 +64,9 @@ namespace Entidades.Realidad
         /// Se puede crear el objeto a partir de una letura en la base de datos.
         /// </summary>
         /// <param name="lector">Donde se encuentran los objetos, recorar de usar el read() antes.</param>
-        public Propiead (SqlDataReader lector)
+        public Propiedad (SqlDataReader lector)
         {
-            Propiead retorno = (Propiead)Generador_Objeto(lector);
+            Propiedad retorno = (Propiedad)Generador_Objeto(lector);
 
             _Padron = retorno.Padron;
             _Direccion = retorno.Direccion;
@@ -77,6 +77,7 @@ namespace Entidades.Realidad
             _Precio = retorno.Precio;
             _Zona = retorno.Zona;
             _Precio = retorno.Precio;
+            _Empleado = retorno.Empleado;
 
         }
         /// <summary>
@@ -84,13 +85,13 @@ namespace Entidades.Realidad
         /// </summary>
         /// <param name="lector">Donde se encuentran los objetos, recorar de usar el read() antes.</param>
         /// <returns>Retorna el objeto ya generado.</returns>
-        public Propiead Generador_Objeto(SqlDataReader lector)
+        public Propiedad Generador_Objeto(SqlDataReader lector)
         {
-            Propiead retorno = new Propiead();
+            Propiedad retorno = new Propiedad();
 
             retorno.Padron = int.Parse(lector["padron"].ToString());
             retorno.Zona = new Zona() { Codigo = lector["codigo_zona"].ToString(), Letra_Departamento = lector["letra_departamento"].ToString() };
-
+            retorno.Empleado.Nombre = lector["nombre_empleado"].ToString();
             Tipo_Accion accion_convertida;
             Enum.TryParse(lector["accion"].ToString(), out accion_convertida);
             retorno.Accion = accion_convertida;
@@ -101,6 +102,15 @@ namespace Entidades.Realidad
             retorno.Metros_Cuadrados = int.Parse(lector["metros_cuadrados"].ToString());
             retorno.Precio = decimal.Parse(lector["precio"].ToString());
 
+            try
+            {
+                retorno.Zona.Nombre = lector["nombre_zona"].ToString();
+
+            }
+            catch
+            {
+                retorno.Zona.Nombre = "(Sin Definir)";
+            }
             return retorno;
         }
 

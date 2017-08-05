@@ -41,15 +41,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controlador_Valores.cs" />
+    <Compile Include="Fabrica_Logica.cs" />
+    <Compile Include="Interfaces\ILogica_Apartamento.cs" />
+    <Compile Include="Interfaces\ILogica_Casa.cs" />
+    <Compile Include="Interfaces\ILogica_Consulta.cs" />
+    <Compile Include="Interfaces\ILogica_Empleado.cs" />
+    <Compile Include="Interfaces\ILogica_Local.cs" />
+    <Compile Include="Interfaces\ILogica_Propiedad.cs" />
+    <Compile Include="Interfaces\ILogica_Zona.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Logica_Automatica.cs" />
-    <Compile Include="Singelton\Logica_Apartamento.cs" />
-    <Compile Include="Singelton\Logica_Casa.cs" />
-    <Compile Include="Singelton\Logica_Consulta.cs" />
-    <Compile Include="Singelton\Logica_Empleado.cs" />
-    <Compile Include="Singelton\Logica_Local.cs" />
-    <Compile Include="Singelton\Logica_Propiedad.cs" />
-    <Compile Include="Singelton\Logica_Zona.cs" />
+    <Compile Include="Singleton\Logica_Apartamento.cs" />
+    <Compile Include="Singleton\Logica_Casa.cs" />
+    <Compile Include="Singleton\Logica_Consulta.cs" />
+    <Compile Include="Singleton\Logica_Empleado.cs" />
+    <Compile Include="Singleton\Logica_Local.cs" />
+    <Compile Include="Singleton\Logica_Propiedad.cs" />
+    <Compile Include="Singleton\Logica_Zona.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Entidades\Entidades.csproj">

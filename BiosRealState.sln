@@ -11,16 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistencia", "Persistenci
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entidades", "Entidades\Entidades.csproj", "{C3528BBD-9EF0-4FA9-B0C7-9B2E963E3406}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersistenciaPruebas", "PersistenciaTests1\PersistenciaPruebas.csproj", "{9DD7CBCA-BE47-447B-A8BF-6C27B9EA337E}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Archivo SQL", "Archivo SQL", "{AEC7DCE3-CB82-4ECB-BE42-7A225228F937}"
 	ProjectSection(SolutionItems) = preProject
 		..\Script SQL\Creacion de base de datos.sql = ..\Script SQL\Creacion de base de datos.sql
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntidadesTests1", "EntidadesTests1\EntidadesTests1.csproj", "{6C74C44A-138A-41BC-9077-A3FCA0AE731E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicaTests", "LogicaTests\LogicaTests.csproj", "{93260CC3-A511-4E07-8125-F79A0C51C27A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,18 +38,6 @@ Global
 		{C3528BBD-9EF0-4FA9-B0C7-9B2E963E3406}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3528BBD-9EF0-4FA9-B0C7-9B2E963E3406}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3528BBD-9EF0-4FA9-B0C7-9B2E963E3406}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9DD7CBCA-BE47-447B-A8BF-6C27B9EA337E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9DD7CBCA-BE47-447B-A8BF-6C27B9EA337E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9DD7CBCA-BE47-447B-A8BF-6C27B9EA337E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9DD7CBCA-BE47-447B-A8BF-6C27B9EA337E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6C74C44A-138A-41BC-9077-A3FCA0AE731E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6C74C44A-138A-41BC-9077-A3FCA0AE731E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6C74C44A-138A-41BC-9077-A3FCA0AE731E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6C74C44A-138A-41BC-9077-A3FCA0AE731E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{93260CC3-A511-4E07-8125-F79A0C51C27A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{93260CC3-A511-4E07-8125-F79A0C51C27A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{93260CC3-A511-4E07-8125-F79A0C51C27A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{93260CC3-A511-4E07-8125-F79A0C51C27A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -12,7 +12,7 @@ namespace Persistencia.Interfaces
         int Baja(Empleado Objeto);
         int Modificar(Empleado Objeto, string NuevaContrasenia);
         List<Empleado> Listado(int padron);
-        List<Propiead> Consultas_Propiedades_Modificadas(Empleado Empleado_Seleccionado);
+        List<Propiedad> Consultas_Propiedades_Modificadas(Empleado Empleado_Seleccionado);
         int Inicio_Sesion(Empleado Empleado_Seleccionado);
     }
 }

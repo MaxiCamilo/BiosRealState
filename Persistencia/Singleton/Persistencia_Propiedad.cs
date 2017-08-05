@@ -25,32 +25,32 @@ namespace Persistencia.Singleton
         #endregion
 
         #region Implementacion
-        public int Alta(Propiead Objeto)
+        public int Alta(Propiedad Objeto)
         {
             return Persistencia_Automatica.Iniciar_Transaccion(Objeto, "AltaPropiedad", Objeto.Parametros);
         }
-        public int Baja(Propiead Objeto)
+        public int Baja(Propiedad Objeto)
         {
             return Persistencia_Automatica.Iniciar_Transaccion(Objeto, "BajaPropiedad", Objeto.Identificadores);
         }
-        public int Modificar(Propiead Objeto)
+        public int Modificar(Propiedad Objeto)
         {
             return Persistencia_Automatica.Iniciar_Transaccion(Objeto, "ModificarPropiedad", Objeto.Parametros);
         }
-        public List<Propiead> Listado_Activos()
+        public List<Propiedad> Listado_Activos()
         {
-            Propiead Prototipo = new Propiead();
+            Propiedad Prototipo = new Propiedad();
             ComandoSQL comando = new ComandoSQL("LISTADO_PROPIEDADES_ACTIVAS");
-            return comando.Generar_Listado<Propiead>(Prototipo.Generador_Objeto, false);
+            return comando.Generar_Listado<Propiedad>(Prototipo.Generador_Objeto, false);
         }
-        public List<Propiead> Listado_Todo()
+        public List<Propiedad> Listado_Todo()
         {
-            Propiead Prototipo = new Propiead();
+            Propiedad Prototipo = new Propiedad();
             ComandoSQL comando = new ComandoSQL("LISTADO_PROPIEDADES");
-            return comando.Generar_Listado<Propiead>(Prototipo.Generador_Objeto, false);
+            return comando.Generar_Listado<Propiedad>(Prototipo.Generador_Objeto, false);
         }
 
-        public List<Consulta> Listar_Consultas(Propiead Propiedad_Elegida)
+        public List<Consulta> Listar_Consultas(Propiedad Propiedad_Elegida)
         {
             ComandoSQL comando = new ComandoSQL("LISTADO_CONSULTAS_PROPIEDAD(@padron)");
             comando.AgregarParametro("padron", Propiedad_Elegida.Padron);
@@ -61,15 +61,15 @@ namespace Persistencia.Singleton
         #endregion
 
         #region Generadores
-        public Propiead Generar(int Padron)
+        public Propiedad Generar(int Padron)
         {
             ComandoSQL comando = new ComandoSQL("SELECCIONAR_PROPIEDAD(@padron)");
             comando.AgregarParametro("padron", Padron);
-            Propiead Protoripo = new Propiead();
-            return comando.Ejecutar_Lector<Propiead>(Protoripo.Generador_Objeto);
+            Propiedad Protoripo = new Propiedad();
+            return comando.Ejecutar_Lector<Propiedad>(Protoripo.Generador_Objeto);
         }
 
-        public void Detallar_Zona(ref Propiead Propiedad_Elegida)
+        public void Detallar_Zona(ref Propiedad Propiedad_Elegida)
         {            
             ComandoSQL comando = new ComandoSQL("DETALLAR_ZONA_PADRON(@padron)");
             comando.AgregarParametro("padron", Propiedad_Elegida.Padron);
@@ -80,7 +80,7 @@ namespace Persistencia.Singleton
             Propiedad_Elegida.Zona = Prototipo;
         }
 
-        public void Detalle_Empleado(ref Propiead Propiedad_Elegida)
+        public void Detalle_Empleado(ref Propiedad Propiedad_Elegida)
         {
             ComandoSQL comando = new ComandoSQL("LISTADO_EMPLEADO_PROPIEDAD(@padron)");
             comando.AgregarParametro("padron", Propiedad_Elegida.Padron);

@@ -8,14 +8,14 @@ namespace Persistencia.Interfaces
 {
     public interface IPersistencia_Propiedad
     {
-        int Alta(Propiead Objeto);
-        int Baja(Propiead Objeto);
-        int Modificar(Propiead Objeto);
-        List<Propiead> Listado_Activos();
-        List<Propiead> Listado_Todo();
-        Propiead Generar(int Padron);
-        void Detallar_Zona(ref Propiead Propiedad_Elegida);
-        void Detalle_Empleado(ref Propiead Propiedad_Elegida);
-        List<Consulta> Listar_Consultas(Propiead Propiedad_Elegida);
+        int Alta(Propiedad Objeto);
+        int Baja(Propiedad Objeto);
+        int Modificar(Propiedad Objeto);
+        List<Propiedad> Listado_Activos();
+        List<Propiedad> Listado_Todo();
+        Propiedad Generar(int Padron);
+        void Detallar_Zona(ref Propiedad Propiedad_Elegida);
+        void Detalle_Empleado(ref Propiedad Propiedad_Elegida);
+        List<Consulta> Listar_Consultas(Propiedad Propiedad_Elegida);
     }
 }

@@ -6,10 +6,11 @@ using Entidades.Realidad;
 using Entidades.Validadores;
 using Entidades.Interfaces;
 using Persistencia;
+using Logica.Interfaces;
 
-namespace Logica.Singelton
+namespace Logica.Singleton
 {
-    public class Logica_Zona
+    public class Logica_Zona : ILogica_Zona
     {
         #region Singleton
         // Variable estática para la instancia, se necesita utilizar una función lambda ya que el constructor es privado
@@ -60,8 +61,9 @@ namespace Logica.Singelton
                         {
                             new NoVacio(),
                             new SinEspacios(),
-                            //new Hasta(){Limite=3, Solo_Validar_Largo=true}
-                            new Limite(){Maximo=3,Minimo=3}
+                            new Hasta(){Limite=3, Solo_Validar_Largo=true},
+                            new Minimo(){Limite=3, Solo_Validar_Largo=true}
+
                         }
                     },
                     new Controlador_Valores(){
@@ -100,7 +102,11 @@ namespace Logica.Singelton
             List<string> retorno = logica.Iniciar_Comprobacion();
             if(retorno.Count == 0)
             {
-                if(Fabrica_Persistencia.getPersistencia_Zona.Alta(unaZona) != 0)
+                if(unaZona.Nombre == "--Todas--")
+                {
+                    retorno.Add("Nop, este no es un error bobo ;)");
+                }
+                if (Fabrica_Persistencia.getPersistencia_Zona.Alta(unaZona) != 0)
                 {
                     retorno.Add("Error al crear el objeto en la base de datos");
                 }
@@ -255,7 +261,7 @@ namespace Logica.Singelton
                         Validadores =
                         {
                             new NoVacio(),
-                            new Minimo(){Limite=30}
+                            new Hasta(){Limite=30}
                         }
                     }
 
@@ -300,7 +306,7 @@ namespace Logica.Singelton
                         Validadores =
                         {
                             new NoVacio(),
-                            new Minimo(){Limite=30}
+                            new Hasta(){Limite=30}
                         }
                     }
 

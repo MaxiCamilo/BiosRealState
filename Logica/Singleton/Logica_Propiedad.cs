@@ -6,15 +6,16 @@ using Entidades.Realidad;
 using Entidades.Validadores;
 using Entidades.Interfaces;
 using Persistencia;
-using static Entidades.Realidad.Propiead;
+using static Entidades.Realidad.Propiedad;
+using Logica.Interfaces;
 
-namespace Logica.Singelton
+namespace Logica.Singleton
 {
     /// <summary>
     /// Clase para usar las propiedades de las entidades propiedades
     /// OJO! Algunas funciones no tienen impacto sobre la base de datos ya que necesita ser clasificadas segun su tipo, solo verifica y enlista
     /// </summary>
-    public class Logica_Propiedad
+    public class Logica_Propiedad : ILogica_Propiedad
     {
         #region Singleton
         // Variable estática para la instancia, se necesita utilizar una función lambda ya que el constructor es privado
@@ -28,11 +29,11 @@ namespace Logica.Singelton
         public static Logica_Propiedad Instancia { get { return _instancia.Value; } }
 
         #endregion
-#region Implementacion
-        public List<String> Verificar_Propiedad(out Propiead Generado, Object padron, Object direccion, Object precio, Object accion, Object cantidad_banio,
+        #region Implementacion
+        public List<String> Verificar_Propiedad(out Propiedad Generado, Object padron, Object direccion, Object precio, Object accion, Object cantidad_banio,
             Object cantidad_habitaciones, Object metros_cuadrados, Object codigo_zona, Object letra_departamento, Object nombre_empleado, bool VerificarSql = false)
         {
-            Propiead unaPropiedad = new Propiead();            
+            Propiedad unaPropiedad = new Propiedad();            
             Logica_Automatica logica = new Logica_Automatica()
             {
                 Validadores_Formato =
@@ -202,7 +203,7 @@ namespace Logica.Singelton
         public List<string> Baja_Propiedad(Object Padron)
         {
             List<string> retorno = new List<string>();
-            Propiead unaPropiedad = new Propiead();
+            Propiedad unaPropiedad = new Propiedad();
             Logica_Automatica logica = new Logica_Automatica()
             {
                 Validadores_Formato =
@@ -247,21 +248,21 @@ namespace Logica.Singelton
 
         #region Listados
 
-        public List<Propiead> Listado_Activos() { return Fabrica_Persistencia.getPersistencia_Propiedad.Listado_Activos(); }
+        public List<Propiedad> Listado_Activos() { return Fabrica_Persistencia.getPersistencia_Propiedad.Listado_Activos(); }
 
-        public List<Propiead> Listado_Todo() { return Fabrica_Persistencia.getPersistencia_Propiedad.Listado_Todo(); }
+        public List<Propiedad> Listado_Todo() { return Fabrica_Persistencia.getPersistencia_Propiedad.Listado_Todo(); }
 
         #endregion
 
         #region
 
-        public Propiead Generar(int Padron) { return Fabrica_Persistencia.getPersistencia_Propiedad.Generar(Padron); }
+        public Propiedad Generar(int Padron) { return Fabrica_Persistencia.getPersistencia_Propiedad.Generar(Padron); }
 
-        void Detallar_Zona(ref Propiead Propiedad_Elegida) { Fabrica_Persistencia.getPersistencia_Propiedad.Detallar_Zona(ref Propiedad_Elegida); }
+        public void Detallar_Zona(ref Propiedad Propiedad_Elegida) { Fabrica_Persistencia.getPersistencia_Propiedad.Detallar_Zona(ref Propiedad_Elegida); }
 
-        public void Detalle_Empleado(ref Propiead Propiedad_Elegida) { Fabrica_Persistencia.getPersistencia_Propiedad.Detalle_Empleado(ref Propiedad_Elegida); }
+        public void Detalle_Empleado(ref Propiedad Propiedad_Elegida) { Fabrica_Persistencia.getPersistencia_Propiedad.Detalle_Empleado(ref Propiedad_Elegida); }
 
-        public List<Consulta> Listar_Consultas(Propiead Propiedad_Elegida) { return Fabrica_Persistencia.getPersistencia_Propiedad.Listar_Consultas(Propiedad_Elegida); }
+        public List<Consulta> Listar_Consultas(Propiedad Propiedad_Elegida) { return Fabrica_Persistencia.getPersistencia_Propiedad.Listar_Consultas(Propiedad_Elegida); }
 
         #endregion
 

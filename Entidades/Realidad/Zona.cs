@@ -79,7 +79,7 @@ namespace Entidades.Realidad
         /// <returns></returns>
         public override string ToString()
         {
-            return Ver_Propiedades.En_Linea(this);
+            return "" + Nombre + " (Código: " + Codigo + " y Departamento " + Letra_Departamento + ")";
         }
         
         /// <summary>

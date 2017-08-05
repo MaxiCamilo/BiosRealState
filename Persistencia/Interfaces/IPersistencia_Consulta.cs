@@ -12,7 +12,7 @@ namespace Persistencia.Interfaces
         int Baja(Consulta Objeto);
         List<Consulta> Listado(int padron);
         Consulta Generar(DateTime Fecha, string telefono);
-        List<Consulta> Consultas_Propiedad(int Padron);
+        //List<Consulta> Consultas_Propiedad(int Padron);
 
     }
 }

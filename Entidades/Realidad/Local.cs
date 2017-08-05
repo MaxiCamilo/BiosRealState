@@ -12,7 +12,7 @@ namespace Entidades.Realidad
     /// <summary>
     /// Tipo de propiedad, solo tiene habilitacion
     /// </summary>
-    public class Local : Propiead
+    public class Local : Propiedad
     {
         //Atributos
         private bool _Habilitacion = false;
@@ -39,8 +39,8 @@ namespace Entidades.Realidad
         /// </summary>
         /// <param name="lector">Donde se encuentran los objetos, recorar de usar el read() antes.</param>
         public Local (SqlDataReader lector) : base(lector)
-        {
-            _Habilitacion = lector["habilitacion"].ToString() == "1";
+        {            
+            _Habilitacion = Convert.ToBoolean(lector["habilitacion"].ToString());
 
         }
 
@@ -49,7 +49,7 @@ namespace Entidades.Realidad
         /// Fuente: https://stackoverflow.com/questions/9885644/cast-the-parent-object-to-child-object-in-c-sharp
         /// </summary>
         /// <param name="padre">Objeto por el cual se quiere castear y pasar sus valores</param>
-        public Local(Propiead padre)
+        public Local(Propiedad padre)
         {
             foreach (FieldInfo prop in padre.GetType().GetFields())
                 GetType().GetField(prop.Name).SetValue(this, prop.GetValue(padre));
@@ -65,8 +65,8 @@ namespace Entidades.Realidad
         /// <returns>Retorna el objeto ya generado.</returns>
         public new Local Generador_Objeto(SqlDataReader lector)
         {
-            Local retorno = new Local() { Habilitacion = lector["habilitacion"].ToString() == "1" };
-            Propiead retorno_base = base.Generador_Objeto(lector);
+            Local retorno = new Local() { Habilitacion = Convert.ToBoolean(lector["habilitacion"].ToString()) };
+            Propiedad retorno_base = base.Generador_Objeto(lector);
 
             retorno.Padron = retorno_base.Padron;
             retorno.Direccion = retorno_base.Direccion;
@@ -77,7 +77,7 @@ namespace Entidades.Realidad
             retorno.Precio = retorno_base.Precio;
             retorno.Zona = retorno_base.Zona;
             retorno.Precio = retorno_base.Precio;
-            
+            retorno.Empleado = retorno_base.Empleado;
             return retorno;
         }
 

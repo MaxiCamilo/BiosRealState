@@ -50,12 +50,12 @@ namespace Persistencia.Singleton
         #endregion
 
         #region Generadores
-        public List<Propiead> Consultas_Propiedades_Modificadas(Empleado Empleado_Seleccionado)
+        public List<Propiedad> Consultas_Propiedades_Modificadas(Empleado Empleado_Seleccionado)
         {
-            Propiead Prototipo = new Propiead();
+            Propiedad Prototipo = new Propiedad();
             ComandoSQL comando = new ComandoSQL("LISTADO_ACCIONES_EMPLEADO (@nombre)");
             comando.AgregarParametro("nombre", Empleado_Seleccionado.Nombre);
-            return comando.Generar_Listado<Propiead>(Prototipo.Generador_Objeto, false);
+            return comando.Generar_Listado<Propiedad>(Prototipo.Generador_Objeto, false);
         }
         #endregion
 

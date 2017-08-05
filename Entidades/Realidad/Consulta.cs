@@ -20,14 +20,14 @@ namespace Entidades.Realidad
         private string _Hora = DateTime.Now.ToShortTimeString();
 
         //Atributo Externo
-        private Propiead _Propiedad = new Propiead();
+        private Propiedad _Propiedad = new Propiedad();
 
         //Accesores
         public string Telefono { get { return _Telefono; } set { _Telefono = value; } }
         public string Nombre { get { return _Nombre; } set { _Nombre = value; } }
         public DateTime Fecha { get { return _Fecha; } set { _Fecha = value; } }
         public string Hora { get { return _Hora; } set { _Hora = value; } }
-        public Propiead Propiedad { get { return  _Propiedad;  } set { _Propiedad = value; } }
+        public Propiedad Propiedad { get { return  _Propiedad;  } set { _Propiedad = value; } }
 
         /// <summary>
         /// Constructor Basico, Dejara como '<Sin Definir>' las variables
@@ -37,7 +37,7 @@ namespace Entidades.Realidad
         /// <summary>
         /// Constructor Completo 
         /// </summary>
-        public Consulta(string Telefono, string Nombre, DateTime Fecha, string Hora, Propiead Propiedad) {
+        public Consulta(string Telefono, string Nombre, DateTime Fecha, string Hora, Propiedad Propiedad) {
             _Telefono = Telefono;
             _Nombre = Nombre;
             _Fecha = Fecha;
@@ -70,7 +70,7 @@ namespace Entidades.Realidad
             Consulta retorno = new Consulta();
 
             retorno.Nombre = lector["nombre"].ToString();
-            retorno.Propiedad = new Propiead() { Padron = int.Parse(lector["padron_propiedad"].ToString()) };
+            retorno.Propiedad = new Propiedad() { Padron = int.Parse(lector["padron_propiedad"].ToString()) };
             retorno.Telefono = lector["telefono"].ToString();
             retorno.Hora = lector["hora"].ToString();
             retorno.Fecha = Convert.ToDateTime(lector["fecha"].ToString());
@@ -98,7 +98,7 @@ namespace Entidades.Realidad
 
             retorno.Add("telefono", _Telefono);
             retorno.Add("nombre", _Nombre);
-            retorno.Add("fecha", _Fecha.ToShortDateString());
+            retorno.Add("fecha", _Fecha);
             retorno.Add("hora", _Hora);
             retorno.Add("padron_propiedad", _Propiedad.Padron);
             
@@ -116,7 +116,7 @@ namespace Entidades.Realidad
             Dictionary<string, object> retorno = new Dictionary<string, object>();
 
             retorno.Add("telefono", _Telefono);
-            retorno.Add("padron_propiedad", _Propiedad.Padron);
+            //retorno.Add("padron_propiedad", _Propiedad.Padron);
             retorno.Add("fecha", _Fecha);
             retorno.Add("hora", _Hora);
             return retorno;

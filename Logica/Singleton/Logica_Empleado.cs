@@ -8,11 +8,11 @@ using System.Data.SqlClient;
 using Persistencia.Interfaces;
 using Entidades.Validadores;
 using Persistencia;
+using Logica.Interfaces;
 
-
-namespace Logica.Singelton
+namespace Logica.Singleton
 {
-    public class Logica_Empleado
+    public class Logica_Empleado : ILogica_Empleado
     {
         #region Singleton
         // Variable estática para la instancia, se necesita utilizar una función lambda ya que el constructor es privado
@@ -159,7 +159,7 @@ namespace Logica.Singelton
         {
             if (contrasenia_nueva.ToString() != confirmacion.ToString())
             {
-                return new List<string>() { "Las 2 contraseñeras nuevas deben coincidir" };
+                return new List<string>() { "Las 2 contraseñas nuevas deben coincidir" };
             }
             Logica_Automatica logica = new Logica_Automatica()
             {
@@ -214,7 +214,7 @@ namespace Logica.Singelton
             return Fabrica_Persistencia.getPersistencia_Empleado.Listado(padron);
         }
 
-        public List<Propiead> Consultas_Propiedades_Modificadas(Empleado Empleado_Seleccionado)
+        public List<Propiedad> Consultas_Propiedades_Modificadas(Empleado Empleado_Seleccionado)
         {
             return Fabrica_Persistencia.getPersistencia_Empleado.Consultas_Propiedades_Modificadas(Empleado_Seleccionado);
         }

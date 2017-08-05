@@ -52,7 +52,7 @@
     <Compile Include="Realidad\Consulta.cs" />
     <Compile Include="Realidad\Empleado.cs" />
     <Compile Include="Realidad\Local.cs" />
-    <Compile Include="Realidad\Propiead.cs" />
+    <Compile Include="Realidad\Propiedad.cs" />
     <Compile Include="Realidad\Zona.cs" />
     <Compile Include="Utilidades\Ver_Propiedades.cs" />
     <Compile Include="Validadores\Igual.cs" />

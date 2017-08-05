@@ -40,13 +40,13 @@ namespace Persistencia.Singleton
         public List<Apartamento> Listado_Activos()
         {
             Apartamento Prototipo = new Apartamento();
-            ComandoSQL comando = new ComandoSQL("LISTADO_APARTAMENTO_ACTIVAS");
+            ComandoSQL comando = new ComandoSQL("LISTADO_APARTAMENTOS_ACTIVAS");
             return comando.Generar_Listado<Apartamento>(Prototipo.Generador_Objeto, false);
         }
         public List<Apartamento> Listado_Todo()
         {
             Apartamento Prototipo = new Apartamento();
-            ComandoSQL comando = new ComandoSQL("LISTADO_APARTAMENTO");
+            ComandoSQL comando = new ComandoSQL("LISTADO_APARTAMENTOS");
             return comando.Generar_Listado<Apartamento>(Prototipo.Generador_Objeto, false);
         }
         #endregion

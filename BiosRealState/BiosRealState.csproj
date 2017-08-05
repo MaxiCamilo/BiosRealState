@@ -20,6 +20,11 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -57,6 +62,18 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ABMApartamentos.aspx" />
+    <Content Include="ABMCasas.aspx" />
+    <Content Include="ABMEmpleados.aspx" />
+    <Content Include="ABMLocales.aspx" />
+    <Content Include="ABMZonas.aspx" />
+    <Content Include="ConsultaPropiedad.aspx" />
+    <Content Include="Controles\Cuadro_Resultado.ascx" />
+    <Content Include="Controles\Listado_Entidades.ascx" />
+    <Content Include="Default.aspx" />
+    <Content Include="Errores\Caducado.aspx" />
+    <Content Include="HacerConsulta.aspx" />
+    <Content Include="Logueo.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -66,7 +83,112 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ABMApartamentos.aspx.cs">
+      <DependentUpon>ABMApartamentos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ABMApartamentos.aspx.designer.cs">
+      <DependentUpon>ABMApartamentos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ABMCasas.aspx.cs">
+      <DependentUpon>ABMCasas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ABMCasas.aspx.designer.cs">
+      <DependentUpon>ABMCasas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ABMEmpleados.aspx.cs">
+      <DependentUpon>ABMEmpleados.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ABMEmpleados.aspx.designer.cs">
+      <DependentUpon>ABMEmpleados.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ABMLocales.aspx.cs">
+      <DependentUpon>ABMLocales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ABMLocales.aspx.designer.cs">
+      <DependentUpon>ABMLocales.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ABMZonas.aspx.cs">
+      <DependentUpon>ABMZonas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ABMZonas.aspx.designer.cs">
+      <DependentUpon>ABMZonas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cabecera.Master.cs">
+      <DependentUpon>Cabecera.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cabecera.Master.designer.cs">
+      <DependentUpon>Cabecera.Master</DependentUpon>
+    </Compile>
+    <Compile Include="ConsultaPropiedad.aspx.cs">
+      <DependentUpon>ConsultaPropiedad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ConsultaPropiedad.aspx.designer.cs">
+      <DependentUpon>ConsultaPropiedad.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Cuadro_Resultado.ascx.cs">
+      <DependentUpon>Cuadro_Resultado.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Cuadro_Resultado.ascx.designer.cs">
+      <DependentUpon>Cuadro_Resultado.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\Evento_Entidad.cs" />
+    <Compile Include="Controles\Listado_Entidades.ascx.cs">
+      <DependentUpon>Listado_Entidades.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles\Listado_Entidades.ascx.designer.cs">
+      <DependentUpon>Listado_Entidades.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Errores\Caducado.aspx.cs">
+      <DependentUpon>Caducado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Errores\Caducado.aspx.designer.cs">
+      <DependentUpon>Caducado.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HacerConsulta.aspx.cs">
+      <DependentUpon>HacerConsulta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HacerConsulta.aspx.designer.cs">
+      <DependentUpon>HacerConsulta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Logueo.aspx.cs">
+      <DependentUpon>Logueo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Logueo.aspx.designer.cs">
+      <DependentUpon>Logueo.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Cabecera.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Entidades\Entidades.csproj">
+      <Project>{c3528bbd-9ef0-4fa9-b0c7-9b2e963e3406}</Project>
+      <Name>Entidades</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logica\Logica.csproj">
+      <Project>{e5e5d943-ad59-4bdc-8805-83110772db94}</Project>
+      <Name>Logica</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
