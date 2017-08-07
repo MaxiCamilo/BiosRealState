@@ -13,64 +13,100 @@ namespace BiosRealState
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["usuario"] == null)
+            try
             {
-                Server.Transfer("/Default.aspx", true);
+                if (Session["usuario"] == null)
+                {
+                    Response.Redirect("/Default.aspx");
+                }
+            }
+            catch
+            {
+                Response.Write("<h5 class='red darken-2 white-text card-panel hoverable'>Error de servidor, su peticion fue rechazada</h5>");
             }
         }
 
         protected void btnAltaEmpleado_Click(object sender, EventArgs e)
         {
-            MxResultadoAlta.Visible = false;
-            List<string> retorno = Fabrica_Logica.getLogica_Empleado.Alta_empleado(txtAltaNombre.Text, txtAltaContrasenia.Text, txtAltaConfirmacion.Text);
-            if (retorno.Count != 0)
+            try
             {
-                MxResultadoAlta.Resultado = retorno;
-                MxResultadoAlta.Visible = true;
-                AltaPositivo.Visible = false;
-                return;
+                MxResultadoAlta.Visible = false;
+                List<string> retorno = Fabrica_Logica.getLogica_Empleado.Alta_empleado(txtAltaNombre.Text, txtAltaContrasenia.Text, txtAltaConfirmacion.Text);
+                if (retorno.Count != 0)
+                {
+                    MxResultadoAlta.Resultado = retorno;
+                    MxResultadoAlta.Visible = true;
+                    AltaPositivo.Visible = false;
+                    return;
+                }
+                MxResultadoAlta.Visible = false;
+                AltaPositivo.Visible = true;
+
+                txtAltaNombre.Text = "";
+                txtAltaContrasenia.Text = "";
+                txtAltaConfirmacion.Text = "";
             }
-            MxResultadoAlta.Visible = false;
-            AltaPositivo.Visible = true;
+            catch
+            {
+                Response.Write("<h5 class='red darken-2 white-text card-panel hoverable'>Error de servidor, su peticion fue rechazada</h5>");
+            }
         }
 
         protected void btnModificarClave_Click(object sender, EventArgs e)
         {
-            MxResultadoClave.Visible = false;
-            Empleado unEmpleado = new Empleado();
-            unEmpleado.Nombre = ((Empleado)Session["usuario"]).Nombre;
-            unEmpleado.Contrasenia = txtModificarVieja.Text.ToString();
-
-            List<string> retorno = Fabrica_Logica.getLogica_Empleado.Modificar_empleado(unEmpleado, txtModificarNueva.Text, txtModificarConfirmacion.Text);
-            if (retorno.Count != 0)
+            try
             {
-                MxResultadoClave.Resultado = retorno;
-                MxResultadoClave.Visible = true;
-                ModificarPositivo.Visible = false;
-                return;
+                MxResultadoClave.Visible = false;
+                Empleado unEmpleado = new Empleado();
+                unEmpleado.Nombre = ((Empleado)Session["usuario"]).Nombre;
+                unEmpleado.Contrasenia = txtModificarVieja.Text.ToString();
+
+                List<string> retorno = Fabrica_Logica.getLogica_Empleado.Modificar_empleado(unEmpleado, txtModificarNueva.Text, txtModificarConfirmacion.Text);
+                if (retorno.Count != 0)
+                {
+                    MxResultadoClave.Resultado = retorno;
+                    MxResultadoClave.Visible = true;
+                    ModificarPositivo.Visible = false;
+                    return;
+                }
+                unEmpleado.Contrasenia = txtModificarNueva.Text.ToString();
+                Session["usuario"] = unEmpleado;
+                MxResultadoClave.Visible = false;
+                ModificarPositivo.Visible = true;
+
+                txtModificarConfirmacion.Text = "";
+                txtModificarNueva.Text = "";
+                txtModificarVieja.Text = "";
             }
-            unEmpleado.Contrasenia = txtModificarNueva.Text.ToString();
-            Session["usuario"] = unEmpleado;
-            MxResultadoClave.Visible = false;
-            ModificarPositivo.Visible = true;
+            catch
+            {
+                Response.Write("<h5 class='red darken-2 white-text card-panel hoverable'>Error de servidor, su peticion fue rechazada</h5>");
+            }
         }
 
         protected void btnDarDeBaja_Click(object sender, EventArgs e)
         {
-            MxResultadoBaja.Visible = false;
-            Empleado unEmpleado = new Empleado();
-            unEmpleado.Nombre = ((Empleado)Session["usuario"]).Nombre;
-            unEmpleado.Contrasenia = txtBajaContrasenia.Text.ToString();
-
-            List<string> retorno = Fabrica_Logica.getLogica_Empleado.Baja_Empleado(unEmpleado.Nombre,unEmpleado.Contrasenia,txtBajaConfirmacion.Text);
-            if (retorno.Count != 0)
+            try
             {
-                MxResultadoBaja.Resultado = retorno;
-                MxResultadoBaja.Visible = true;
-                return;
+                MxResultadoBaja.Visible = false;
+                Empleado unEmpleado = new Empleado();
+                unEmpleado.Nombre = ((Empleado)Session["usuario"]).Nombre;
+                unEmpleado.Contrasenia = txtBajaContrasenia.Text.ToString();
+
+                List<string> retorno = Fabrica_Logica.getLogica_Empleado.Baja_Empleado(unEmpleado.Nombre, unEmpleado.Contrasenia, txtBajaConfirmacion.Text);
+                if (retorno.Count != 0)
+                {
+                    MxResultadoBaja.Resultado = retorno;
+                    MxResultadoBaja.Visible = true;
+                    return;
+                }
+                Session["usuario"] = null;
+                Response.Redirect("/");
             }
-            Session["usuario"] = null;
-            Response.Redirect("/");
+            catch
+            {
+                Response.Write("<h5 class='red darken-2 white-text card-panel hoverable'>Error de servidor, su peticion fue rechazada</h5>");
+            }
         }
     }
 }

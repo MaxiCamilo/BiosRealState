@@ -16,7 +16,7 @@ namespace Entidades.Excepiones
         /// <summary>
         /// El SqlConnection que reporto el fallo
         /// </summary>
-        public SqlConnection Conexion { get; set; } = null;
+        public SqlConnection Conexion { get; set; }
 
         public ExErrorConexion(): base()
         {

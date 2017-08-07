@@ -13,22 +13,29 @@ namespace BiosRealState
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         protected void btnIniciarSesion_Click(object sender, EventArgs e)
         {
-            List<string> retorno = Fabrica_Logica.getLogica_Empleado.Iniciar_Sesion(txtNombre.Text, txtContrasenia.Text);
-            
-            if(retorno.Count == 0)
+            try
             {
-                Session["usuario"] = new Empleado(txtNombre.Text.ToString(), txtContrasenia.Text.ToString());
-                Server.Transfer("/Default.aspx", true);
+                List<string> retorno = Fabrica_Logica.getLogica_Empleado.Iniciar_Sesion(txtNombre.Text, txtContrasenia.Text);
+
+                if (retorno.Count == 0)
+                {
+                    Session["usuario"] = new Empleado(txtNombre.Text.ToString(), txtContrasenia.Text.ToString());
+                    Response.Redirect("/Default.aspx");
+                }
+                else
+                {
+                    MxResultado.Visible = true;
+                    MxResultado.Resultado = retorno;
+                }
             }
-            else
+            catch
             {
-                MxResultado.Visible = true;
-                MxResultado.Resultado = retorno;
+                Response.Write("<h5 class='red darken-2 white-text card-panel hoverable'>Error de servidor, su peticion fue rechazada</h5>");
             }
         }
     }

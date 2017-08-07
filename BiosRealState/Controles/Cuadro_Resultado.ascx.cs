@@ -27,13 +27,13 @@ namespace BiosRealState.Controles
             set { _Resultado = value;
                 if (Resultado.Count != 0)
                 {
-                    string Mensajes = "<nav><ul>";
+                    string Mensajes = "<ul class='collection'>";
 
                     foreach (string dato in Resultado)
                     {
-                        Mensajes += "<li>" + dato + "</li>";
+                        Mensajes += "<li class='collection-item'>" + dato + "</li>";
                     }
-                    Mensajes += "</ul></nav>";
+                    Mensajes += "</ul>";
                     _MensajeHTML = Mensajes;
                 }
                 else

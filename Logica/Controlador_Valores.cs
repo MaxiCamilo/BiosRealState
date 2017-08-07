@@ -10,13 +10,14 @@ namespace Logica
     {
         public delegate void Funcion_Asignada(Object _Valor);
 
-        public string Nombre = " < Sin Nombre >";
-        public string Mensaje { get; set; } = "";
+        public string Nombre;
+        public string Mensaje { get; set; }
         public Object Valor { get; set; }
         public Funcion_Asignada Asignar { get; set; }
-        public List<Validador> Validadores { get; set; } = new List<Validador>();
+        public List<Validador> Validadores { get; set; } 
 
         public Controlador_Valores() {
+            Validadores = new List<Validador>();
         }
 
        
@@ -33,7 +34,14 @@ namespace Logica
                 }
             }
             //Propiedad_Destino = (Object)Valor;
-            Asignar?.Invoke(Valor);
+            try
+            {
+                Asignar.Invoke(Valor);
+            }
+            catch { }
+                
+
+            
             return true;
         }
     }

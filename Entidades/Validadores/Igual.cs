@@ -14,10 +14,11 @@ namespace Entidades.Validadores
         /// <summary>
         /// En esta lista se definen los datos que debe tener un dato valido
         /// </summary>
-        public List<Object> Aceptados { get; set; } = new List<Object>();
+        public List<Object> Aceptados { get; set; } 
         public Igual()
         {
             Mensaje = "El dato no es un valor aceptado";
+            Aceptados = new List<Object>();
         }
         //Funcion de validador
         public override bool Validar()

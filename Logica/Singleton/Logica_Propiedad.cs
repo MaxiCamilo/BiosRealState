@@ -6,7 +6,6 @@ using Entidades.Realidad;
 using Entidades.Validadores;
 using Entidades.Interfaces;
 using Persistencia;
-using static Entidades.Realidad.Propiedad;
 using Logica.Interfaces;
 
 namespace Logica.Singleton
@@ -80,7 +79,7 @@ namespace Logica.Singleton
                         Valor=accion,
                         Asignar = a => {
                             //Convertir string a Enum
-                            Tipo_Accion accion_convertida;
+                            Entidades.Realidad.Propiedad.Tipo_Accion accion_convertida;
                             Enum.TryParse(a.ToString(), out accion_convertida);
                             unaPropiedad.Accion = accion_convertida;
                         },

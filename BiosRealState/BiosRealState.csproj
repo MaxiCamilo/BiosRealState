@@ -70,9 +70,17 @@
     <Content Include="ConsultaPropiedad.aspx" />
     <Content Include="Controles\Cuadro_Resultado.ascx" />
     <Content Include="Controles\Listado_Entidades.ascx" />
+    <Content Include="Css\jquery-3.2.1.min.js" />
+    <Content Include="Css\materialize.min.css" />
+    <Content Include="Css\materialize.min.js" />
+    <Content Include="Css\Modificadores.css" />
     <Content Include="Default.aspx" />
     <Content Include="Errores\Caducado.aspx" />
     <Content Include="HacerConsulta.aspx" />
+    <Content Include="Imagenes\Gato.jpg" />
+    <Content Include="Imagenes\Gris.jpg" />
+    <Content Include="Imagenes\orange-sale-tag.svg" />
+    <Content Include="Imagenes\sale-tag-icon.png" />
     <Content Include="Logueo.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -190,6 +198,7 @@
       <Name>Logica</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

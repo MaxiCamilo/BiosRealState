@@ -13,11 +13,11 @@ namespace Entidades.Validadores
     {
         
 
-        public Decimal Limite { get; set; } = 0;
-        public bool Solo_Validar_Largo { get; set; } = false;
+        public Decimal Limite { get; set; }
+        public bool Solo_Validar_Largo { get; set; }
         public Minimo()
         {
-            
+            Solo_Validar_Largo = false;
         }
 
 

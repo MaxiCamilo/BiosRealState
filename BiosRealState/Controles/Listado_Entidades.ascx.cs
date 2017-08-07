@@ -100,7 +100,9 @@ namespace BiosRealState.Controles
                 {
                     //Creamos boton de seleccionado
                     Button botonSeleccionar = new Button();
-                    botonSeleccionar.Text = ">";
+                    botonSeleccionar.Text = "Seleccionar";
+                    botonSeleccionar.Attributes.Add("title","Seleccionar");
+                    botonSeleccionar.CssClass = "btn waves-effect waves-light light-blue darken-1";
                     botonSeleccionar.ID = "Seleccionar" + iterador;
                     TableCell CeldaSeleccionar = new TableCell();
                     CeldaSeleccionar.Controls.Add(botonSeleccionar);
@@ -144,19 +146,21 @@ namespace BiosRealState.Controles
                         Button botonSeleccionar = new Button();
                         botonSeleccionar.Text = "Eliminar";
                         botonSeleccionar.ID = "Eliminar" + iterador;
+                        botonSeleccionar.CssClass = "btn waves-effect waves-light red darken-1";
                         CeldaSeleccionar.Controls.Add(botonSeleccionar);
                         botonSeleccionar.Click += (object sender, EventArgs e) =>
                         {
                             Eliminar(sender, new Evento_Entidad() { Envio = seleccionado });
                         };
                     }
-
+                    
                     //Creamos boton modificar
                     if (_Habilitar_Modificar)
                     {
                         Button botonSeleccionar = new Button();
                         botonSeleccionar.Text = "Modificar";
                         botonSeleccionar.ID = "Modificar" + iterador;
+                        botonSeleccionar.CssClass = "btn waves-effect waves-light light-green darken-1";
                         CeldaSeleccionar.Controls.Add(botonSeleccionar);
                         botonSeleccionar.Click += (object sender, EventArgs e) =>
                         {

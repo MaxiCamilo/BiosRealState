@@ -13,139 +13,172 @@ namespace BiosRealState
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                //Llenamos las zonas
-                List<Zona> variasZonas = Fabrica_Logica.getLogica_Zona.Listado_Activos();
-                txtZona.Items.Add("--Todas--");
-                foreach(Zona unaZona in variasZonas)
+                if (!IsPostBack)
                 {
-                    txtZona.Items.Add(unaZona.Nombre);
-                }
-                Hacer_Busqueda();
+                    //Llenamos las zonas
+                    List<Zona> variasZonas = Fabrica_Logica.getLogica_Zona.Listado_Activos();
+                    txtZona.Items.Add("--Todas--");
+                    foreach (Zona unaZona in variasZonas)
+                    {
+                        txtZona.Items.Add(unaZona.Nombre);
+                    }
+                    Hacer_Busqueda();
 
+                }
+                else
+                {
+
+                }
             }
-            else
+            catch
             {
-                
+                Response.Write("<h5 class='red darken-2 white-text card-panel hoverable'>Error de servidor, su peticion fue rechazada</h5>");
             }
         }
 
         protected void btnMostrarCuadro_Click(object sender, EventArgs e)
         {
-            divBusqueda.Visible = !divBusqueda.Visible;
-            
+            try
+            {
+                divBusqueda.Visible = !divBusqueda.Visible;
+            }
+            catch
+            {
+                Response.Write("<h5 class='red darken-2 white-text card-panel hoverable'>Error de servidor, su peticion fue rechazada</h5>");
+            }
         }
 
         private void Hacer_Busqueda()
         {
-            List<Propiedad> vp = new List<Propiedad>();
-            
-            if (txtTipo.SelectedValue == "local")
+            try
             {
-               List<Local> variasPropiedad = Fabrica_Logica.getLogica_Local.Listado_Activos();
-                vp = variasPropiedad.Select(s => (Propiedad)s).ToList();
-            }
-            else if (txtTipo.SelectedValue == "apartamento")
-            {
-                List<Apartamento> variasPropiedad = Fabrica_Logica.getLogica_Apartamento.Listado_Activo();
-                vp = variasPropiedad.Select(s => (Propiedad)s).ToList();
-            }
-            else if (txtTipo.SelectedValue == "casa")
-            {
-                List<Casa> variasPropiedad = Fabrica_Logica.getLogica_Casa.Listado_Activos();
-                vp = variasPropiedad.Select(s => (Propiedad)s).ToList();
-            }
-            else
-            {
-                vp = Fabrica_Logica.getLogica_Propiedad.Listado_Activos();
-            }
-            //Filtro de Tipo
-            if (txtAccion.SelectedItem.Text != "--Todas--")
-            {
-                List<Propiedad> prototipo = new List<Propiedad>();
-                foreach (Propiedad p in vp)
+                List<Propiedad> vp = new List<Propiedad>();
+
+                if (txtTipo.SelectedValue == "local")
                 {
-                    if(p.Accion.ToString() == txtAccion.SelectedItem.Text)
+                    List<Local> variasPropiedad = Fabrica_Logica.getLogica_Local.Listado_Activos();
+                    vp = variasPropiedad.Select(s => (Propiedad)s).ToList();
+                }
+                else if (txtTipo.SelectedValue == "apartamento")
+                {
+                    List<Apartamento> variasPropiedad = Fabrica_Logica.getLogica_Apartamento.Listado_Activo();
+                    vp = variasPropiedad.Select(s => (Propiedad)s).ToList();
+                }
+                else if (txtTipo.SelectedValue == "casa")
+                {
+                    List<Casa> variasPropiedad = Fabrica_Logica.getLogica_Casa.Listado_Activos();
+                    vp = variasPropiedad.Select(s => (Propiedad)s).ToList();
+                }
+                else
+                {
+                    vp = Fabrica_Logica.getLogica_Propiedad.Listado_Activos();
+                }
+                //Filtro de Tipo
+                if (txtAccion.SelectedItem.Text != "--Todas--")
+                {
+                    List<Propiedad> prototipo = new List<Propiedad>();
+                    foreach (Propiedad p in vp)
                     {
-                        prototipo.Add(p);
+                        if (p.Accion.ToString() == txtAccion.SelectedItem.Text)
+                        {
+                            prototipo.Add(p);
+                        }
+                    }
+                    vp = prototipo;
+                }
+
+
+
+
+                decimal numero = 0;
+                //Solo numeros
+                if (txtPrecio.Text != "")
+                {
+
+                    if (!decimal.TryParse(txtPrecio.Text, out numero))
+                    {
+                        txtPrecio.Text = "0";
                     }
                 }
-                vp = prototipo;
-            }
 
-
-
-
-            decimal numero = 0;
-            //Solo numeros
-            if (txtPrecio.Text != "")
-            {
-                
-                if(!decimal.TryParse(txtPrecio.Text, out numero))
+                //Verificamos los tipos de Linq to Object
+                if (txtZona.SelectedItem.Text == "--Todas--" && txtPrecio.Text != "")
                 {
-                    txtPrecio.Text = "0";
+                    var filtro = from p in vp
+                                 where p.Precio == numero
+                                 select p;
+                    repetidor.DataSource = filtro;
+                    repetidor.DataBind();
                 }
+                else if (txtZona.SelectedItem.Text != "--Todas--" && txtPrecio.Text == "")
+                {
+                    var filtro = from p in vp
+                                 where p.Zona.Nombre == txtZona.SelectedItem.Text
+                                 select p;
+                    repetidor.DataSource = filtro;
+                    repetidor.DataBind();
+                }
+                else if (txtZona.SelectedItem.Text != "--Todas--" && txtPrecio.Text != "")
+                {
+                    var filtro = from p in vp
+                                 where p.Zona.Nombre == txtZona.SelectedItem.Text
+                                 where p.Precio == numero
+                                 select p;
+                    repetidor.DataSource = filtro;
+                    repetidor.DataBind();
+                }
+                else
+                {
+                    var filtro = from p in vp
+                                 select p;
+                    repetidor.DataSource = filtro;
+                    repetidor.DataBind();
+                }
+
+            }
+            catch
+            {
+                Response.Write("<h5 class='red darken-2 white-text card-panel hoverable'>Error de servidor, su peticion fue rechazada</h5>");
             }
 
-            //Verificamos los tipos de Linq to Object
-            if (txtZona.SelectedItem.Text == "--Todas--" && txtPrecio.Text != "")
-            {
-                var filtro = from p in vp
-                            where p.Precio == numero
-                            select p;
-                repetidor.DataSource = filtro;
-                repetidor.DataBind();
-            }
-            else if(txtZona.SelectedItem.Text != "--Todas--" && txtPrecio.Text == "")
-            {
-                var filtro = from p in vp
-                            where p.Zona.Nombre == txtZona.SelectedItem.Text
-                            select p;
-                repetidor.DataSource = filtro;
-                repetidor.DataBind();
-            }
-            else if (txtZona.SelectedItem.Text != "--Todas--" && txtPrecio.Text != "")
-            {
-                var filtro = from p in vp
-                            where p.Zona.Nombre == txtZona.SelectedItem.Text
-                            where p.Precio == numero
-                            select p;
-                repetidor.DataSource = filtro;
-                repetidor.DataBind();
-            }
-            else
-            {
-                var filtro = from p in vp
-                            select p;
-                repetidor.DataSource = filtro;
-                repetidor.DataBind();
-            }
-
-            
 
 
-            
         }
 
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-            Hacer_Busqueda();
+            try
+            {
+                Hacer_Busqueda();
+            }
+            catch
+            {
+                Response.Write("<h5 class='red darken-2 white-text card-panel hoverable'>Error de servidor, su peticion fue rechazada</h5>");
+            }
         }
 
         protected void btnLimpiar_Click(object sender, EventArgs e)
         {
-            txtTipo.SelectedValue = "todo";
-            txtAccion.SelectedValue = "todo";
-            txtPrecio.Text = "";
-            txtZona.Items.Clear();
-            List<Zona> variasZonas = Fabrica_Logica.getLogica_Zona.Listado_Activos();
-            txtZona.Items.Add("--Todas--");
-            foreach (Zona unaZona in variasZonas)
+            try
             {
-                txtZona.Items.Add(unaZona.Nombre);
+                txtTipo.SelectedValue = "todo";
+                txtAccion.SelectedValue = "todo";
+                txtPrecio.Text = "";
+                txtZona.Items.Clear();
+                List<Zona> variasZonas = Fabrica_Logica.getLogica_Zona.Listado_Activos();
+                txtZona.Items.Add("--Todas--");
+                foreach (Zona unaZona in variasZonas)
+                {
+                    txtZona.Items.Add(unaZona.Nombre);
+                }
+                Hacer_Busqueda();
             }
-            Hacer_Busqueda();
+            catch
+            {
+                Response.Write("<h5 class='red darken-2 white-text card-panel hoverable'>Error de servidor, su peticion fue rechazada</h5>");
+            }
         }
     }
 }

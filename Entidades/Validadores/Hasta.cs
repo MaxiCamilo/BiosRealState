@@ -12,11 +12,11 @@ namespace Entidades.Validadores
     public class Hasta : Validador
     {
 
-        public Decimal Limite { get; set; } = 0;
-        public bool Solo_Validar_Largo { get; set; } = false;
+        public Decimal Limite { get; set; }
+        public bool Solo_Validar_Largo { get; set; }
         public Hasta()
         {
-            
+            Solo_Validar_Largo = false;
         }
 
 

@@ -12,7 +12,7 @@ namespace Entidades.Interfaces
     {
         abstract public bool Validar();
         public Object Valor { get; set; }
-        public string Mensaje { get; set; } = " < Sin Mensaje > ";
+        public string Mensaje { get; set; }
 
     }
     public interface IConversor

@@ -96,7 +96,7 @@ namespace Persistencia.Singleton
 
         public Zona Generar(string codigo, string letra_departamento)
         {
-            ComandoSQL comando = new ComandoSQL("SELECCIONAR_PROPIEDAD(@codigo, @letra_departamento)");
+            ComandoSQL comando = new ComandoSQL("SELECCIONAR_ZONA(@codigo, @letra_departamento)");
             comando.AgregarParametro("codigo", codigo);
             comando.AgregarParametro("letra_departamento", letra_departamento);
             Zona Protoripo = new Zona();

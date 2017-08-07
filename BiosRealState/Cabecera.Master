@@ -6,46 +6,61 @@
 
 <html>
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Bios Real State</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="Css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="Css/Modificadores.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    
+
     <form id="Formulario" runat="server">
         <div>
             <header>
-        <div id="LogoHeader">
-            <h1 runat="server" ID="Bienvenida">Bienvenido a Bios Real State</h1>
-        </div>
-        <nav>
-            <ul>
-                <li runat="server" id="L_Consulta"><asp:HyperLink ID="Consulta" Text="Consultar Propiedad" runat="server" NavigateUrl="~/ConsultaPropiedad.aspx"></asp:HyperLink></li>
-                <li runat="server" id="L_Usuario"><asp:HyperLink ID="Usuario" Text="Usuarios" runat="server" NavigateUrl="~/Logueo.aspx"></asp:HyperLink></li>                
 
-                <li runat="server" ID="L_Zonas"><asp:HyperLink ID="Zonas" Text="Zonas" runat="server" NavigateUrl="~/ABMZonas.aspx"></asp:HyperLink></li>
-                <li runat="server" ID="L_Casas"><asp:HyperLink ID="Casas" Text="Casas" runat="server" NavigateUrl="~/ABMCasas.aspx"></asp:HyperLink></li>
-                <li runat="server" ID="L_Apartamentos"><asp:HyperLink ID="Apartamentos" Text="Apartamentos" runat="server" NavigateUrl="~/ABMApartamentos.aspx"></asp:HyperLink></li>
-                <li runat="server" ID="L_Locales"><asp:HyperLink ID="Locales" Text="Locales Comerciales" runat="server" NavigateUrl="~/ABMLocales.aspx"></asp:HyperLink></li>
-                <li runat="server" ID="L_Empleados"><asp:HyperLink ID="Empleados" Text="Empleados" runat="server" NavigateUrl="~/ABMEmpleados.aspx"></asp:HyperLink></li>
+                <nav class="nav-wrapper indigo">
+                    <asp:HyperLink runat="server" NavigateUrl="~/Default.aspx"><h4 runat="server" class="brand-logo" id="Bienvenida">Bienvenido a Bios Real State</h4></asp:HyperLink>
+                    <ul class="right hide-on-med-and-down">
+                        <li runat="server" id="L_Consulta">
+                            <asp:HyperLink ID="Consulta" Text="Consultar Propiedad" runat="server" NavigateUrl="~/ConsultaPropiedad.aspx"></asp:HyperLink></li>
+                        <li runat="server" id="L_Usuario">
+                            <asp:HyperLink ID="Usuario" Text="Usuarios" runat="server" NavigateUrl="~/Logueo.aspx"></asp:HyperLink></li>
 
-                <li runat="server" id="L_CerrarSesion"><asp:Button ID="CerrarSesion" Text="Cerrar Sesion" runat="server"  OnClick="CerrarSesion_Click"/></li>
+                        <li runat="server" id="L_Zonas">
+                            <asp:HyperLink ID="Zonas" Text="Zonas" runat="server" NavigateUrl="~/ABMZonas.aspx"></asp:HyperLink></li>
+                        <li runat="server" id="L_Casas">
+                            <asp:HyperLink ID="Casas" Text="Casas" runat="server" NavigateUrl="~/ABMCasas.aspx"></asp:HyperLink></li>
+                        <li runat="server" id="L_Apartamentos">
+                            <asp:HyperLink ID="Apartamentos" Text="Apartamentos" runat="server" NavigateUrl="~/ABMApartamentos.aspx"></asp:HyperLink></li>
+                        <li runat="server" id="L_Locales">
+                            <asp:HyperLink ID="Locales" Text="Locales Comerciales" runat="server" NavigateUrl="~/ABMLocales.aspx"></asp:HyperLink></li>
+                        <li runat="server" id="L_Empleados">
+                            <asp:HyperLink ID="Empleados" Text="Empleados" runat="server" NavigateUrl="~/ABMEmpleados.aspx"></asp:HyperLink></li>
 
-            </ul>
-        </nav>
-    </header>
+                        <li runat="server" id="L_CerrarSesion">
+                            <a class="waves-effect waves-light btn indigo lighten-2"><asp:Button ID="CerrarSesion" Text="Cerrar Sesion"  runat="server" OnClick="CerrarSesion_Click" /></a>
+
+                        </li>
+
+                    </ul>
+                </nav>
+                <div id="LogoHeader">
+                </div>
+            </header>
             <asp:ContentPlaceHolder ID="EspacioContenido" runat="server">
             </asp:ContentPlaceHolder>
         </div>
     </form>
-    <footer>
-        <section id="CosoAntiPirateria">
-            <p>Copyright Real Bios State, con todo los derechos reservados.</p>
-        </section>
-        <section id="Credito">
+    <footer class="page-footer  blue-grey lighten-2">
+        <p>Copyright Real Bios State, con todo los derechos reservados.</p>
+        <section id="Credito" class="footer-copyright  blue-grey darken-3">
             <p>Hecho por Maximiliano Camilo</p>
         </section>
     </footer>
+    <script type="text/javascript" src="Css/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="Css/materialize.min.js"></script>
 </body>
 </html>

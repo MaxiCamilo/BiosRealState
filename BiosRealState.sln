@@ -1,8 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
-MinimumVisualStudioVersion = 10.0.40219.1
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiosRealState", "BiosRealState\BiosRealState.csproj", "{990C772F-A1A3-4793-BC9C-30C4C4FD7FA0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logica", "Logica\Logica.csproj", "{E5E5D943-AD59-4BDC-8805-83110772DB94}"
@@ -13,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entidades", "Entidades\Enti
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Archivo SQL", "Archivo SQL", "{AEC7DCE3-CB82-4ECB-BE42-7A225228F937}"
 	ProjectSection(SolutionItems) = preProject
-		..\Script SQL\Creacion de base de datos.sql = ..\Script SQL\Creacion de base de datos.sql
+		Script SQL\Creacion de base de datos.sql = Script SQL\Creacion de base de datos.sql
 	EndProjectSection
 EndProject
 Global

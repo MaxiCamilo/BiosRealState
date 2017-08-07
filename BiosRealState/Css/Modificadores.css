@@ -1,0 +1,23 @@
+﻿body {
+}
+
+.Mostrar {
+    display: inline-block !important;
+}
+
+    .Mostrar > input[type=checkbox] {
+        display: inline-block !important;
+        position: static !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
+
+.MinimoLista {
+    min-height: 100px !important;
+}
+/*
+body{
+    background:url(/Imagenes/Gris.jpg);
+    background-attachment:fixed;
+}
+    */

@@ -11,11 +11,12 @@ namespace Entidades.Validadores
     /// </summary>
     public class Limite : Validador
     {
-        public Decimal Maximo { get; set; } = 0;
-        public Decimal Minimo { get; set; } = 0;
-        public bool Solo_Validar_Largo { get; set; } = false;
+        public Decimal Maximo { get; set; }
+        public Decimal Minimo { get; set; }
+        public bool Solo_Validar_Largo { get; set; }
         public Limite()
         {
+            Solo_Validar_Largo = false;
             Mensaje = "no se encuentra entre los valores permitidos (debe ser de " + Minimo + " a " + Maximo + ")";
         }
 

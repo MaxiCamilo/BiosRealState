@@ -13,11 +13,11 @@ namespace Entidades.Excepiones
         /// <summary>
         /// El número devuelto por el procedimiento
         /// </summary>
-        public int Retorno { get; set; } = 0;
+        public int Retorno { get; set; }
         /// <summary>
         /// Nombre del procedimiento que falló
         /// </summary>
-        public string Nombre_Procedimiento { get; set; } = "<Sin Definir>";
+        public string Nombre_Procedimiento { get; set; }
 
         /// <summary>
         /// Generar la excepcion de falló de 

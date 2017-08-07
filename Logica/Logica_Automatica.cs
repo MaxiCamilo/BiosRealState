@@ -16,19 +16,22 @@ namespace Logica
         /// <summary>
         /// Se asignan los controladores (con sus respectivos validadores), para verificar que los valores tengan un formato correcto
         /// </summary>
-        public List<Controlador_Valores> Validadores_Formato { get; set; } = new List<Controlador_Valores>();
+        public List<Controlador_Valores> Validadores_Formato { get; set; } 
 
         /// <summary>
         /// Cuando se alla verificados que los formatos sean correcto, se hace una comprobacion para que los datos sean
         /// correcto en la base de datos (usar los validadores de la capa persistencia)
         /// </summary>
-        public List<Controlador_Valores> Validadores_Persistencia { get; set; } = new List<Controlador_Valores>();
+        public List<Controlador_Valores> Validadores_Persistencia { get; set; }
 
         
 
         
         
-        public Logica_Automatica() { }
+        public Logica_Automatica() {
+            Validadores_Formato = new List<Controlador_Valores>();
+            Validadores_Persistencia = new List<Controlador_Valores>();
+        }
 
         /// <summary>
         /// Inicia la comprobacion con los verificadores ya asignados

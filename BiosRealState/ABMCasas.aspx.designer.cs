@@ -40,24 +40,6 @@ namespace BiosRealState {
         protected global::System.Web.UI.WebControls.TextBox txtAltaDireccion;
         
         /// <summary>
-        /// Control txtAltaPrecio.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAltaPrecio;
-        
-        /// <summary>
-        /// Control txtAltaAccion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox txtAltaAccion;
-        
-        /// <summary>
         /// Control txtAltaCantidad_banio.
         /// </summary>
         /// <remarks>
@@ -83,6 +65,24 @@ namespace BiosRealState {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAltaMetros_cuadrados;
+        
+        /// <summary>
+        /// Control txtAltaPrecio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAltaPrecio;
+        
+        /// <summary>
+        /// Control txtAltaAccion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList txtAltaAccion;
         
         /// <summary>
         /// Control txtAltaTamanio_terreno.
@@ -157,24 +157,6 @@ namespace BiosRealState {
         protected global::System.Web.UI.WebControls.TextBox txtModificarDireccion;
         
         /// <summary>
-        /// Control txtModificarPrecio.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtModificarPrecio;
-        
-        /// <summary>
-        /// Control txtModificarAccion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox txtModificarAccion;
-        
-        /// <summary>
         /// Control txtModificarCantidad_banio.
         /// </summary>
         /// <remarks>
@@ -200,6 +182,24 @@ namespace BiosRealState {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtModificarMetros_cuadrados;
+        
+        /// <summary>
+        /// Control txtModificarPrecio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtModificarPrecio;
+        
+        /// <summary>
+        /// Control txtModificarAccion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList txtModificarAccion;
         
         /// <summary>
         /// Control txtModificarTamanio_terreno.

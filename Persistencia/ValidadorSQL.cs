@@ -10,12 +10,22 @@ namespace Persistencia
 
     public class ValidadorSQL : Validador
     {
-        public string ErrorA { get; set; } = "Error 1";
-        public string ErrorB { get; set; } = "Error 2";
-        public string ErrorC { get; set; } = "Error 3";
+        public string ErrorA { get; set; }
+        public string ErrorB { get; set; }
+        public string ErrorC { get; set; }
 
-        public Dictionary<string, object> Parametros { get; set; } = new Dictionary<string, object>();
+        public Dictionary<string, object> Parametros { get; set; }
         public int ValorRetornado { get; private set; }
+
+        public ValidadorSQL()
+        {
+            Parametros = new Dictionary<string, object>();
+            ErrorA = "< Sin Definir >";
+            ErrorB = "< Sin Definir >";
+            ErrorC = "< Sin Definir >";
+
+        }
+
 
         public override bool  Validar()
         {

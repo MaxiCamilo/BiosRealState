@@ -44,7 +44,7 @@ namespace BiosRealState
             else if(Fabrica_Logica.getLogica_Empleado.Iniciar_Sesion(Logeado.Nombre,Logeado.Contrasenia).Count != 0)
             {
                 Session["usuario"] = null;
-                Server.Transfer("/Errores/Caducado.aspx", true);
+                Response.Redirect("/Errores/Caducado.aspx");
             }
             //Es el empleado
             else
